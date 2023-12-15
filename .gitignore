@@ -1,0 +1,12 @@
+# 最初にすべての階層のファイルを無視
+### all ignore ###
+/*
+/.**
+
+### not ignore ###
+!/fish/config.fish
+!/nvim/init.vim
+!/.bashrc
+
+!/README.md
+!.gitignore
