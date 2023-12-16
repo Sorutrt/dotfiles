@@ -10,7 +10,7 @@ set showmatch
 "シンタックスハイライト
 syntax on
 " タブをスペース4つ分に
-set tabstop = 4
+set tabstop=4
 " サーチ時に大文字小文字を区別しない
 set ignorecase
 " 小文字で検索すると大文字小文字を区別しない
