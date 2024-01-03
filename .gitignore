@@ -5,6 +5,7 @@
 
 ### not ignore ###
 !/fish/config.fish
+!/fish/starship.toml
 !/nvim/init.vim
 !/.bashrc
 
