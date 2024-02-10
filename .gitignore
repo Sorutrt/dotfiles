@@ -8,6 +8,7 @@
 !/fish/starship.toml
 !/nvim/init.vim
 !/.bashrc
+!/conky.conf
 
 !/README.md
 !.gitignore
