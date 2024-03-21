@@ -6,7 +6,7 @@
 ### not ignore ###
 !/fish/config.fish
 !/fish/starship.toml
-!/nvim/*
+!/nvim/
 !/.bashrc
 !/conky.conf
 
