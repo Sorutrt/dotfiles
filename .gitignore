@@ -9,6 +9,7 @@
 !/nvim/
 !/.bashrc
 !/conky.conf
+!/.xprofile
 
 !/README.md
 !.gitignore
