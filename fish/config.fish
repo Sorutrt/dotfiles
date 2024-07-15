@@ -7,3 +7,12 @@ starship init fish | source
 
 # opam configuration
 source /home/sorutrt/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+
+# add bib-satysfi to PYTHONPATH
+set -x PYTHONPATH /home/sorutrt/SATySFi/lib-satysfi/bib-satysfi/pysaty
+
+fish_add_path $HOME/.rbenv/bin:$PATH
+
+# JDK
+set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+set -gx PATH $PATH $JAVA_HOME/bin
