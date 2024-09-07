@@ -16,3 +16,10 @@ fish_add_path $HOME/.rbenv/bin:$PATH
 # JDK
 set -gx JAVA_HOME (readlink -f /usr/bin/javac | sed "s:/bin/javac::")
 set -gx PATH $PATH $JAVA_HOME/bin
+
+# pnpm
+set -gx PNPM_HOME "/home/sorutrt/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
