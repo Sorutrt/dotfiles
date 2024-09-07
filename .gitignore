@@ -9,6 +9,8 @@
 !/fish/starship.toml
 !/nvim/
 !/nvim/*/
+!/nvim-lazy/
+!/nvim-lazy/*/
 !/.bashrc
 !/conky.conf
 !/.xprofile
