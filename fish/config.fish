@@ -23,3 +23,6 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# wsl clipboard
+set -gx PATH $HOME/bin /usr/local/bin $PATH

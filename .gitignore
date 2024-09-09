@@ -11,6 +11,8 @@
 !/nvim/*/
 !/nvim-lazy/
 !/nvim-lazy/*/
+!/nvim-jetpack/
+!/nvim-jetpack/*/
 !/.bashrc
 !/conky.conf
 !/.xprofile
