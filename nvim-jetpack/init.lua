@@ -18,11 +18,12 @@ require('jetpack.packer').add {
   {'nvim-tree/nvim-tree.lua'}, -- filer
   {'shellRaining/hlchunk.nvim'}, -- indent guide
   {'folke/which-key.nvim'}, -- keybind guide
+  {'numToStr/Comment.nvim'}, -- Toggle comment
   {'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
       require'nvim-treesitter.configs'.setup {
-        ensure_installed = {'lua', 'javascript', 'typescript' }, -- language parser
+        ensure_installed = {'lua', 'javascript', 'typescript', 'cpp' }, -- language parser
         highlight = { enable = true }
       }
     end
@@ -94,6 +95,14 @@ require("hlchunk").setup({
   indent = { enable = true }
 })
 
+-- Toggle comment
+require("Comment").setup()
+
+-- coc-pairs / Better <CR>
+vim.keymap.set('i', '<CR>', function()
+  return vim.fn.pumvisible() == 1 and vim.fn['coc#_select_confirm']() or vim.api.nvim_replace_termcodes("<C-g>u<CR><c-r>=coc#on_enter()<CR>", true, true, true)
+end, { noremap = true, expr = true, silent = true })
+
 
 -- ========================================
 -- Keybindings
@@ -109,9 +118,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- ~~ Normal Mode ~~
-keymap("n", "<leader>s", ":e $MYVIMRC<CR>", opts) -- open Settings
-keymap("n", "<leader>r", ":source $MYVIMRC<CR>", opts) -- Reload settings
-
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -128,3 +134,17 @@ keymap("n", "<leader>t", ":NvimTreeToggle<CR>", opts) -- Toggle file tree
 
 -- ~~ Insert Mode ~~
 keymap("i", "jk", "<ESC>", opts)
+-- <TAB> to auto completion
+vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { noremap = true, silent = true, expr = true, replace_keycodes = false })
+vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"]], { noremap = true, silent = true, expr = true, replace_keycodes = false })
+
+
+-- ~~ Which-key ~~
+require("which-key").add({
+  { "<leader>s", ":e $MYVIMRC<CR>", desc = "Settings", mode = "n" }, -- open Settings
+  { "<leader>r", ":source $MYVIMRC<CR>", desc = "Reload settings", mode = "n" }, -- Reload settings
+  { "<leader>t", ":NvimTreeToggle<CR>", desc = "Toggle file tree", mode = "n" },
+  { "<leader>j", ":JetpackSync<CR>", desc = "JetpackSync", mode = "n" },
+  { "<leader>w", ":w<CR>", desc = "save file", mode = "n" },
+  { "<leader>q", ":q<CR>", desc = "quit", mode = "n"}
+})
