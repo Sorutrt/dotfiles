@@ -4,16 +4,20 @@
 /.**
 
 ### not ignore ###
+## shell
 !/fish/
 !/fish/config.fish
 !/fish/starship.toml
+!/.zshrc
+!/.bashrc
+
+
 !/nvim/
 !/nvim/*/
 !/nvim-lazy/
 !/nvim-lazy/*/
 !/nvim-jetpack/
 !/nvim-jetpack/*/
-!/.bashrc
 !/conky.conf
 !/.xprofile
 
