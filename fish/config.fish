@@ -26,3 +26,7 @@ end
 
 # wsl clipboard
 set -gx PATH $HOME/bin /usr/local/bin $PATH
+
+# tex live
+set -gx PATH "/usr/local/texlive/2022/bin/x86_64-linux" $PATH
+
