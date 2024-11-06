@@ -28,5 +28,7 @@ end
 set -gx PATH $HOME/bin /usr/local/bin $PATH
 
 # tex live
-set -gx PATH "/usr/local/texlive/2022/bin/x86_64-linux" $PATH
+set -gx PATH "/usr/local/texlive/2024/bin/x86_64-linux" $PATH
 
+# lazygit alias as gg
+alias gg='lazygit'
