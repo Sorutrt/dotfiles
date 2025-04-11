@@ -5,9 +5,9 @@
 
 ### not ignore ###
 ## shell
-!/fish/
 !/fish/config.fish
 !/fish/starship.toml
+# !/fish/
 !/.zshrc
 !/.bashrc
 

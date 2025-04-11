@@ -26,3 +26,6 @@ end
 
 # wsl clipboard
 set -gx PATH $HOME/bin /usr/local/bin $PATH
+
+#lazygit
+abbr -a gg lazygit 
