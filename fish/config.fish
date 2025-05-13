@@ -29,3 +29,13 @@ set -gx PATH $HOME/bin /usr/local/bin $PATH
 
 #lazygit
 abbr -a gg lazygit 
+
+# tree
+abbr -a tree tree -I node_modules -L 3
+
+# git
+abbr -a gc git clone
+
+# cursor
+abbr -a cs cursor
+
