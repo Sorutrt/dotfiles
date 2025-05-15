@@ -39,3 +39,6 @@ abbr -a gc git clone
 # cursor
 abbr -a cs cursor
 
+# npm
+abbr -a nr npm run
+
