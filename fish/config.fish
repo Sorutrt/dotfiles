@@ -30,3 +30,12 @@ set -gx PATH $HOME/bin /usr/local/bin $PATH
 # tex live
 set -gx PATH "/usr/local/texlive/2022/bin/x86_64-linux" $PATH
 
+<<<<<<< Updated upstream
+=======
+# lazygit alias as gg
+alias gg='lazygit'
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+>>>>>>> Stashed changes
