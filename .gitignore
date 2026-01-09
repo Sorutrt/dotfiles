@@ -16,6 +16,8 @@
 !/.bashrc
 !/conky.conf
 !/.xprofile
+!/zsh/
+!/zsh/*
 
 !/README.md
 !.gitignore
