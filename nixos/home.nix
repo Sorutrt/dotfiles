@@ -15,7 +15,7 @@
     unstable.jujutsu
 
     # AI
-    codex
+    unstable.codex
 
     # Editor
     vim
