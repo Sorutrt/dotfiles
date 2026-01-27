@@ -17,8 +17,10 @@
     # AI
     codex
 
+    # CLI
     nnn
     nushell
+    starship
   ];
 
   programs.home-manager.enable = true;
