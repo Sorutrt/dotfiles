@@ -15,6 +15,8 @@
 !/nvim-jetpack/*/
 !/nvim-lazy/
 !/nvim-lazy/*/
+!/windows/
+!/windows/*
 !/.xprofile
 !/zsh/
 !/zsh/*
