@@ -24,6 +24,7 @@
     starship
 
     neovim
+    mise
   ];
 
   programs.home-manager.enable = true;
