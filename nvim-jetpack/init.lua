@@ -56,23 +56,6 @@ vim.opt.ignorecase = true -- case-insensitive when search
 vim.opt.smartcase = true -- Kensakuni Oomoji arutokiha kubetu seehende
 vim.opt.hlsearch = true
 
--- wsl2 clipboard
-vim.opt.clipboard = 'unnamedplus'
-if vim.fn.has("wsl") then
-  vim.g.clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf"
-    },
-    paste = {
-      ["+"] = "win32yank.exe -o --crlf",
-      ["*"] = "win32yank.exe -o --crlf"
-    },
-    cache_enable = 0,
-  }
-end
-
 -- ~~ colorscheme: everforest ~~
 vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 1
