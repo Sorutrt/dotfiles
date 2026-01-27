@@ -22,17 +22,15 @@ require('jetpack.packer').add {
   {'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
-      local ok, ts = pcall(require, 'nvim-treesitter')
+      local ok, configs = pcall(require, 'nvim-treesitter.configs')
       if not ok then
         return
       end
-      ts.setup({
-        install_dir = vim.fn.stdpath('data') .. '/site'
-      })
-      ts.install({ 'lua', 'javascript', 'typescript', 'cpp' })
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'lua', 'javascript', 'typescript', 'cpp' },
-        callback = function() vim.treesitter.start() end,
+      configs.setup({
+        ensure_installed = { 'lua', 'javascript', 'typescript', 'cpp' },
+        sync_install = false,
+        auto_install = false,
+        highlight = { enable = true },
       })
     end
   }
@@ -78,16 +76,29 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
-require("nvim-tree").setup()
-
--- indent guide
-require("hlchunk").setup({
-  chunk = { enable = true },
-  indent = { enable = true }
+vim.api.nvim_create_autocmd('VimEnter', {
+  once = true,
+  callback = function()
+    pcall(function() require("nvim-tree").setup() end)
+    pcall(function()
+      require("hlchunk").setup({
+        chunk = { enable = true },
+        indent = { enable = true }
+      })
+    end)
+    pcall(function() require("Comment").setup() end)
+    pcall(function()
+      require("which-key").add({
+        { "<leader>s", ":e $MYVIMRC<CR>", desc = "Settings", mode = "n" }, -- open Settings
+        { "<leader>r", ":source $MYVIMRC<CR>", desc = "Reload settings", mode = "n" }, -- Reload settings
+        { "<leader>t", ":NvimTreeToggle<CR>", desc = "Toggle file tree", mode = "n" },
+        { "<leader>j", ":JetpackSync<CR>", desc = "JetpackSync", mode = "n" },
+        { "<leader>w", ":w<CR>", desc = "save file", mode = "n" },
+        { "<leader>q", ":q<CR>", desc = "quit", mode = "n"}
+      })
+    end)
+  end,
 })
-
--- Toggle comment
-require("Comment").setup()
 
 -- coc-pairs / Better <CR>
 vim.keymap.set('i', '<CR>', function()
@@ -131,12 +142,4 @@ vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { 
 vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"]], { noremap = true, silent = true, expr = true, replace_keycodes = false })
 
 
--- ~~ Which-key ~~
-require("which-key").add({
-  { "<leader>s", ":e $MYVIMRC<CR>", desc = "Settings", mode = "n" }, -- open Settings
-  { "<leader>r", ":source $MYVIMRC<CR>", desc = "Reload settings", mode = "n" }, -- Reload settings
-  { "<leader>t", ":NvimTreeToggle<CR>", desc = "Toggle file tree", mode = "n" },
-  { "<leader>j", ":JetpackSync<CR>", desc = "JetpackSync", mode = "n" },
-  { "<leader>w", ":w<CR>", desc = "save file", mode = "n" },
-  { "<leader>q", ":q<CR>", desc = "quit", mode = "n"}
-})
+-- which-key setup is deferred to VimEnter to reduce startup work
