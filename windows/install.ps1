@@ -15,8 +15,8 @@ $initLua = "$nvimDir\init.lua"
 $cocSettings = "$nvimDir\coc-settings.json"
 
 # source files (your repo or working directory)
-$sourceInitLua = Join-Path $PSScriptRoot "nvim\init.lua"
-$sourceCocSettings = Join-Path $PSScriptRoot "nvim\coc-settings.json"
+$sourceInitLua = Join-Path $PSScriptRoot "nvim-win\init.lua"
+$sourceCocSettings = Join-Path $PSScriptRoot "nvim-win\coc-settings.json"
 
 # remove existing files if they exist (file or symlink)
 if (Test-Path $initLua) {

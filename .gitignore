@@ -23,6 +23,9 @@ conky.conf
 !/nvim-jetpack/*/
 !/nvim-lazy/
 !/nvim-lazy/*/
+!/nvim-win/
+!/nvim-win/*
+
 # OS
 !/windows/
 !/windows/*
