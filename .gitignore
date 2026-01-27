@@ -4,22 +4,27 @@
 /.**
 
 ### not ignore ###
+!/.xprofile
+
+# shell
 !/.bashrc
-!/conky.conf
-!/fish/
+!!/zsh/
+!/zsh/*
+/!/fish/
 !/fish/config.fish
+
+conky.conf
 !/fish/starship.toml
+
+# editor
 !/nvim/
 !/nvim/*/
 !/nvim-jetpack/
 !/nvim-jetpack/*/
 !/nvim-lazy/
 !/nvim-lazy/*/
+# OS
 !/windows/
 !/windows/*
-!/.xprofile
-!/zsh/
-!/zsh/*
-
 !/README.md
 !.gitignore
