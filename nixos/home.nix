@@ -24,6 +24,9 @@
     starship
 
     neovim
+
+    # lang
+    gcc
     mise
   ];
 
