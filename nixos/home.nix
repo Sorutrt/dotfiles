@@ -8,7 +8,6 @@
     # common tools
     wget
     unstable.fzf
-    vim
 
     # VCS
     git
@@ -18,16 +17,23 @@
     # AI
     codex
 
-    # CLI
-    nnn
-    nushell
-    starship
-
+    # Editor
+    vim
     neovim
 
-    # lang
-    gcc
+    # Shell
+    nushell
+
+    # CLI
+    nnn
+    starship
+
     mise
+
+    # 処理系
+    gcc
+    python312
+    nodejs_24
   ];
 
   programs.home-manager.enable = true;
