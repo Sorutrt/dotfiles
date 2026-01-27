@@ -22,7 +22,7 @@
     nushell
     starship
 
-    nvim
+    neovim
   ];
 
   programs.home-manager.enable = true;
