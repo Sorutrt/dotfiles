@@ -6,7 +6,7 @@ require('jetpack.packer').add {
   'junegunn/fzf.vim',
   {'junegunn/fzf', run = 'call fzf#install()' },
   {'neoclide/coc.nvim', branch = 'release'},
-  {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'},
+  -- {'neoclide/coc.nvim', branch = 'master', run = 'yarn install --frozen-lockfile'},
   {'vlime/vlime', rtp = 'vim' },
   {'sainnhe/everforest'}, -- colorscheme
   {'vim-airline/vim-airline'},
