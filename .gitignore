@@ -12,6 +12,8 @@
 !/zsh/*
 /!/fish/
 !/fish/config.fish
+!/nushell/
+!/nushell/config.nu
 
 conky.conf
 !/fish/starship.toml
