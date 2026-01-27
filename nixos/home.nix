@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     # common tools
     wget
+    unstable.fzf
     vim
 
     # VCS
