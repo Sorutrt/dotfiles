@@ -15,8 +15,8 @@
 !/nushell/
 !/nushell/config.nu
 
-conky.conf
-!/fish/starship.toml
+!/conky.conf
+!/starship.toml
 
 # editor
 !/nvim/
