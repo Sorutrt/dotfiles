@@ -21,6 +21,8 @@
     nnn
     nushell
     starship
+
+    nvim
   ];
 
   programs.home-manager.enable = true;
