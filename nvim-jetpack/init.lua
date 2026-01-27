@@ -22,10 +22,18 @@ require('jetpack.packer').add {
   {'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = {'lua', 'javascript', 'typescript', 'cpp' }, -- language parser
-        highlight = { enable = true }
-      }
+      local ok, ts = pcall(require, 'nvim-treesitter')
+      if not ok then
+        return
+      end
+      ts.setup({
+        install_dir = vim.fn.stdpath('data') .. '/site'
+      })
+      ts.install({ 'lua', 'javascript', 'typescript', 'cpp' })
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'lua', 'javascript', 'typescript', 'cpp' },
+        callback = function() vim.treesitter.start() end,
+      })
     end
   }
 }
@@ -38,7 +46,7 @@ vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 vim.opt.backup = false
 vim.opt.title = true
-vim.opt.number = true -- Line number
+vim.opt.relativenumber = true -- Line number
 vim.opt.wrap = false -- Do not turn around long line
 
 -- ~~ Visual options ~~
@@ -85,6 +93,7 @@ require("Comment").setup()
 vim.keymap.set('i', '<CR>', function()
   return vim.fn.pumvisible() == 1 and vim.fn['coc#_select_confirm']() or vim.api.nvim_replace_termcodes("<C-g>u<CR><c-r>=coc#on_enter()<CR>", true, true, true)
 end, { noremap = true, expr = true, silent = true })
+vim.g.coc_node_path = "/etc/profiles/per-user/nixos/bin/node"
 
 
 -- ========================================
