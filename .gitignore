@@ -29,5 +29,11 @@ conky.conf
 # OS
 !/windows/
 !/windows/*
+!/nixos/
+!/nixos/flake.nix
+!/nixos/flake.lock
+!/nixos/home.nix
+!/nixos/hosts/wsl-nixos/configration.nix
+
 !/README.md
 !.gitignore
