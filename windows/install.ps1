@@ -85,3 +85,34 @@ Write-Host "  PowerShell Profile -> $sourcePsProfile"
 
 # ------------------- end of PowerShell ----------------------
 
+# --------------------------------------------------
+#
+#                  Nushell
+#
+# --------------------------------------------------
+# Nu config directory
+$nuConfigDir = Join-Path $env:APPDATA "nushell"
+
+if (-not (Test-Path $nuConfigDir)) {
+    New-Item -ItemType Directory -Path $nuConfigDir | Out-Null
+}
+
+# path to target config
+$nuConfig = Join-Path $nuConfigDir "config.nu"
+
+# source file (your repo)
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+$sourceNuConfig = Join-Path $repoRoot "nushell\config.nu"
+
+# remove existing config if it exists (file or symlink)
+if (Test-Path $nuConfig) {
+    Remove-Item $nuConfig -Force
+}
+
+# create symbolic link
+New-Item -ItemType SymbolicLink -Path $nuConfig -Value $sourceNuConfig | Out-Null
+
+Write-Host "Symlink created:"
+Write-Host "  Nushell config.nu -> $sourceNuConfig"
+
+# ------------------- end of Nushell ----------------------
