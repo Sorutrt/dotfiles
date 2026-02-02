@@ -20,6 +20,11 @@
 # aliases
 alias lg = lazygit
 
+# custom commands
+def gcl [repo] {
+  git clone git@github.com:Sorutrt/($repo).git
+}
+
 # starship settings
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
