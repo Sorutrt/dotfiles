@@ -38,6 +38,8 @@
 !/nixos/hosts/wsl-nixos/configration.nix
 
 # device 
+!/device/
+!/device/kbd/
 !/device/kbd/googleIME/
 !/device/kbd/googleIME/*
 !/device/kbd/HHKB/
