@@ -37,5 +37,11 @@
 !/nixos/home.nix
 !/nixos/hosts/wsl-nixos/configration.nix
 
+# device 
+!/device/kbd/googleIME/
+!/device/kbd/googleIME/*
+!/device/kbd/HHKB/
+!/device/kbd/HHKB/*.hks
+
 !/README.md
 !.gitignore
