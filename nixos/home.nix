@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  codexSkillRoot = ../codex/skills;
+  managedCodexSkills =
+    lib.filterAttrs (_: type: type == "directory") (builtins.readDir codexSkillRoot);
+in
 {
   home.username = "nixos";
   home.homeDirectory = "/home/nixos";
@@ -35,6 +40,13 @@
     python312
     nodejs_24
   ];
+
+  home.file =
+    lib.mapAttrs'
+      (name: _: lib.nameValuePair ".codex/skills/${name}" {
+        source = codexSkillRoot + "/${name}";
+      })
+      managedCodexSkills;
 
   programs.home-manager.enable = true;
 }

@@ -1,3 +1,20 @@
+# repo root
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+
+function Test-IsReparsePoint {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    if (-not (Test-Path $Path)) {
+        return $false
+    }
+
+    $item = Get-Item -LiteralPath $Path -Force
+    return ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0
+}
+
 # --------------------------------------------------
 #
 #                  NeoVim
@@ -101,7 +118,6 @@ if (-not (Test-Path $nuConfigDir)) {
 $nuConfig = Join-Path $nuConfigDir "config.nu"
 
 # source file (your repo)
-$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $sourceNuConfig = Join-Path $repoRoot "nushell\config.nu"
 
 # remove existing config if it exists (file or symlink)
@@ -116,3 +132,39 @@ Write-Host "Symlink created:"
 Write-Host "  Nushell config.nu -> $sourceNuConfig"
 
 # ------------------- end of Nushell ----------------------
+
+# --------------------------------------------------
+#
+#                  Codex Skills
+#
+# --------------------------------------------------
+$codexSkillsDir = Join-Path $env:USERPROFILE ".codex\skills"
+
+if (-not (Test-Path $codexSkillsDir)) {
+    New-Item -ItemType Directory -Path $codexSkillsDir | Out-Null
+}
+
+$sourceSkillRoot = Join-Path $repoRoot "codex\skills"
+
+if (Test-Path $sourceSkillRoot) {
+    foreach ($skillDir in Get-ChildItem -Path $sourceSkillRoot -Directory) {
+        $targetSkillDir = Join-Path $codexSkillsDir $skillDir.Name
+
+        if (Test-Path $targetSkillDir) {
+            if (Test-IsReparsePoint -Path $targetSkillDir) {
+                Remove-Item $targetSkillDir -Recurse -Force
+            } else {
+                Write-Warning "Skipping existing unmanaged Codex skill: $targetSkillDir"
+                continue
+            }
+        }
+
+        New-Item -ItemType SymbolicLink -Path $targetSkillDir -Value $skillDir.FullName | Out-Null
+        Write-Host "Symlink created:"
+        Write-Host "  Codex skill -> $targetSkillDir"
+    }
+} else {
+    Write-Host "No repo-managed Codex skills found at $sourceSkillRoot"
+}
+
+# ------------------- end of Codex Skills ----------------------

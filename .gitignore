@@ -36,6 +36,9 @@
 !/nixos/flake.lock
 !/nixos/home.nix
 !/nixos/hosts/wsl-nixos/configration.nix
+!/codex/
+!/codex/skills/
+!/codex/skills/**
 
 # device 
 !/device/

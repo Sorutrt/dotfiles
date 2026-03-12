@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dotfiles Maintainer"
+  short_description: "Maintain this dotfiles repo"
+  default_prompt: "Use $dotfiles-maintainer to update this dotfiles repository safely."
