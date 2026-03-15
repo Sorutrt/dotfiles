@@ -1,5 +1,6 @@
 # repo root
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+. (Join-Path $PSScriptRoot "lib\CodexSkills.ps1")
 
 function Test-IsReparsePoint {
     param(
@@ -13,6 +14,28 @@ function Test-IsReparsePoint {
 
     $item = Get-Item -LiteralPath $Path -Force
     return ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0
+}
+
+function Ensure-DirectoryPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    if (Test-Path -LiteralPath $Path) {
+        if (Test-IsReparsePoint -Path $Path) {
+            Remove-Item -LiteralPath $Path -Recurse -Force
+        } else {
+            $item = Get-Item -LiteralPath $Path -Force
+            if (-not $item.PSIsContainer) {
+                throw "Expected directory path but found file: $Path"
+            }
+
+            return
+        }
+    }
+
+    New-Item -ItemType Directory -Path $Path -Force | Out-Null
 }
 
 # --------------------------------------------------
@@ -147,21 +170,32 @@ if (-not (Test-Path $codexSkillsDir)) {
 $sourceSkillRoot = Join-Path $repoRoot "codex\skills"
 
 if (Test-Path $sourceSkillRoot) {
-    foreach ($skillDir in Get-ChildItem -Path $sourceSkillRoot -Directory) {
-        $targetSkillDir = Join-Path $codexSkillsDir $skillDir.Name
+    $skillMappings = Get-CodexManagedSkillMappings -SourceRoot $sourceSkillRoot -TargetRoot $codexSkillsDir
 
-        if (Test-Path $targetSkillDir) {
-            if (Test-IsReparsePoint -Path $targetSkillDir) {
-                Remove-Item $targetSkillDir -Recurse -Force
-            } else {
-                Write-Warning "Skipping existing unmanaged Codex skill: $targetSkillDir"
-                continue
+    if ($skillMappings.Count -eq 0) {
+        Write-Host "No repo-managed Codex skills found at $sourceSkillRoot"
+    } else {
+        foreach ($skillMapping in $skillMappings) {
+            $targetSkillDir = $skillMapping.TargetPath
+            $targetParentDir = Split-Path -Path $targetSkillDir -Parent
+
+            Ensure-DirectoryPath -Path $targetParentDir
+
+            if (Test-Path -LiteralPath $targetSkillDir) {
+                if (Test-IsReparsePoint -Path $targetSkillDir) {
+                    Remove-Item -LiteralPath $targetSkillDir -Recurse -Force
+                } elseif (Test-DirectoryContentMatches -ExpectedPath $skillMapping.SourcePath -ActualPath $targetSkillDir) {
+                    Remove-Item -LiteralPath $targetSkillDir -Recurse -Force
+                } else {
+                    Write-Warning "Skipping existing unmanaged Codex skill: $targetSkillDir"
+                    continue
+                }
             }
-        }
 
-        New-Item -ItemType SymbolicLink -Path $targetSkillDir -Value $skillDir.FullName | Out-Null
-        Write-Host "Symlink created:"
-        Write-Host "  Codex skill -> $targetSkillDir"
+            New-Item -ItemType SymbolicLink -Path $targetSkillDir -Value $skillMapping.SourcePath | Out-Null
+            Write-Host "Symlink created:"
+            Write-Host "  Codex skill -> $targetSkillDir"
+        }
     }
 } else {
     Write-Host "No repo-managed Codex skills found at $sourceSkillRoot"

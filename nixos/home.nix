@@ -3,7 +3,19 @@
 let
   codexSkillRoot = ../codex/skills;
   managedCodexSkills =
-    lib.filterAttrs (_: type: type == "directory") (builtins.readDir codexSkillRoot);
+    lib.unique (
+      map
+        (skillFile:
+          lib.removePrefix
+            "${toString codexSkillRoot}/"
+            (builtins.toString (builtins.dirOf skillFile))
+        )
+        (
+          lib.filter
+            (path: builtins.baseNameOf path == "SKILL.md")
+            (lib.filesystem.listFilesRecursive codexSkillRoot)
+        )
+    );
 in
 {
   home.username = "nixos";
@@ -41,12 +53,14 @@ in
     nodejs_24
   ];
 
-  home.file =
-    lib.mapAttrs'
-      (name: _: lib.nameValuePair ".codex/skills/${name}" {
-        source = codexSkillRoot + "/${name}";
-      })
-      managedCodexSkills;
+  home.file = builtins.listToAttrs (
+    map
+      (relativePath:
+        lib.nameValuePair ".codex/skills/${relativePath}" {
+          source = codexSkillRoot + "/${relativePath}";
+        })
+      managedCodexSkills
+  );
 
   programs.home-manager.enable = true;
 }
