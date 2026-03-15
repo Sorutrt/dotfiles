@@ -1,41 +1,23 @@
 # repo root
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 . (Join-Path $PSScriptRoot "lib\CodexSkills.ps1")
+. (Join-Path $PSScriptRoot "lib\Links.ps1")
 
-function Test-IsReparsePoint {
+function New-RepoLink {
     param(
         [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
+        [string]$TargetPath,
 
-    if (-not (Test-Path $Path)) {
-        return $false
-    }
-
-    $item = Get-Item -LiteralPath $Path -Force
-    return ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0
-}
-
-function Ensure-DirectoryPath {
-    param(
         [Parameter(Mandatory = $true)]
-        [string]$Path
+        [string]$SourcePath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Label
     )
 
-    if (Test-Path -LiteralPath $Path) {
-        if (Test-IsReparsePoint -Path $Path) {
-            Remove-Item -LiteralPath $Path -Recurse -Force
-        } else {
-            $item = Get-Item -LiteralPath $Path -Force
-            if (-not $item.PSIsContainer) {
-                throw "Expected directory path but found file: $Path"
-            }
-
-            return
-        }
-    }
-
-    New-Item -ItemType Directory -Path $Path -Force | Out-Null
+    $result = New-ManagedLink -SourcePath $SourcePath -TargetPath $TargetPath
+    Write-Host "$Label created:"
+    Write-Host "  [$($result.LinkType)] $TargetPath -> $SourcePath"
 }
 
 # --------------------------------------------------
@@ -55,8 +37,8 @@ $initLua = "$nvimDir\init.lua"
 $cocSettings = "$nvimDir\coc-settings.json"
 
 # source files (your repo or working directory)
-$sourceInitLua = Join-Path $PSScriptRoot "nvim-win\init.lua"
-$sourceCocSettings = Join-Path $PSScriptRoot "nvim-win\coc-settings.json"
+$sourceInitLua = Join-Path $repoRoot "nvim-win\init.lua"
+$sourceCocSettings = Join-Path $repoRoot "nvim-win\coc-settings.json"
 
 # remove existing files if they exist (file or symlink)
 if (Test-Path $initLua) {
@@ -67,12 +49,8 @@ if (Test-Path $cocSettings) {
 }
 
 # create symbolic links
-New-Item -ItemType SymbolicLink -Path $initLua -Value $sourceInitLua | Out-Null
-New-Item -ItemType SymbolicLink -Path $cocSettings -Value $sourceCocSettings | Out-Null
-
-Write-Host "Symlinks created:"
-Write-Host "  init.lua -> $sourceInitLua"
-Write-Host "  coc-settings.json -> $sourceCocSettings"
+New-RepoLink -TargetPath $initLua -SourcePath $sourceInitLua -Label "Link"
+New-RepoLink -TargetPath $cocSettings -SourcePath $sourceCocSettings -Label "Link"
 
 # jetpack-nvim pack
 $jetpackpack = "$nvimDir\pack\jetpack\opt"
@@ -118,10 +96,7 @@ if (Test-Path $psProfile) {
 }
 
 # create symbolic link
-New-Item -ItemType SymbolicLink -Path $psProfile -Value $sourcePsProfile | Out-Null
-
-Write-Host "Symlink created:"
-Write-Host "  PowerShell Profile -> $sourcePsProfile"
+New-RepoLink -TargetPath $psProfile -SourcePath $sourcePsProfile -Label "Link"
 
 # ------------------- end of PowerShell ----------------------
 
@@ -149,10 +124,7 @@ if (Test-Path $nuConfig) {
 }
 
 # create symbolic link
-New-Item -ItemType SymbolicLink -Path $nuConfig -Value $sourceNuConfig | Out-Null
-
-Write-Host "Symlink created:"
-Write-Host "  Nushell config.nu -> $sourceNuConfig"
+New-RepoLink -TargetPath $nuConfig -SourcePath $sourceNuConfig -Label "Link"
 
 # ------------------- end of Nushell ----------------------
 
@@ -192,9 +164,7 @@ if (Test-Path $sourceSkillRoot) {
                 }
             }
 
-            New-Item -ItemType SymbolicLink -Path $targetSkillDir -Value $skillMapping.SourcePath | Out-Null
-            Write-Host "Symlink created:"
-            Write-Host "  Codex skill -> $targetSkillDir"
+            New-RepoLink -TargetPath $targetSkillDir -SourcePath $skillMapping.SourcePath -Label "Link"
         }
     }
 } else {
