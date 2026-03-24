@@ -15,7 +15,7 @@ sudo nixos-rebuild switch --flake path:.#nixos
 
 1) lock の更新
 ```
-nix flake update --update-input nixpkgs-unstable
+nix flake update nixpkgs-unstable
 ```
 
 2) (任意) 反映予定のバージョン確認
