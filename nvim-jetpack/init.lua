@@ -1,45 +1,60 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.cmd('packadd vim-jetpack')
-require('jetpack.packer').add {
-  { 'tani/vim-jetpack' },
-  { 'sainnhe/everforest' },
-  {
-    'nvim-tree/nvim-web-devicons',
-    cmd = {
-      'NvimTreeOpen',
-      'NvimTreeClose',
-      'NvimTreeToggle',
-      'NvimTreeFocus',
-      'NvimTreeFindFile',
+local jetpack_path = vim.fn.stdpath('data') .. '/site/pack/jetpack/opt/vim-jetpack'
+local jetpack_available = vim.fn.isdirectory(jetpack_path) == 1
+local jetpack_can_sync = vim.fn.isdirectory(jetpack_path .. '/.git') == 1
+
+if not jetpack_available then
+  vim.fn.mkdir(vim.fn.fnamemodify(jetpack_path, ':h'), 'p')
+  vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/tani/vim-jetpack', jetpack_path })
+  jetpack_available = vim.v.shell_error == 0
+  jetpack_can_sync = jetpack_available
+end
+
+if jetpack_available then
+  vim.cmd('packadd vim-jetpack')
+  require('jetpack.packer').add {
+    { 'tani/vim-jetpack' },
+    { 'sainnhe/everforest' },
+    {
+      'nvim-tree/nvim-web-devicons',
+      cmd = {
+        'NvimTreeOpen',
+        'NvimTreeClose',
+        'NvimTreeToggle',
+        'NvimTreeFocus',
+        'NvimTreeFindFile',
+      },
     },
-  },
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = {
-      'NvimTreeOpen',
-      'NvimTreeClose',
-      'NvimTreeToggle',
-      'NvimTreeFocus',
-      'NvimTreeFindFile',
+    {
+      'nvim-tree/nvim-tree.lua',
+      cmd = {
+        'NvimTreeOpen',
+        'NvimTreeClose',
+        'NvimTreeToggle',
+        'NvimTreeFocus',
+        'NvimTreeFindFile',
+      },
+      config = function()
+        require('nvim-tree').setup({
+          renderer = {
+            group_empty = true,
+          },
+          update_focused_file = {
+            enable = true,
+            update_root = false,
+          },
+          view = {
+            width = 32,
+          },
+        })
+      end,
     },
-    config = function()
-      require('nvim-tree').setup({
-        renderer = {
-          group_empty = true,
-        },
-        update_focused_file = {
-          enable = true,
-          update_root = false,
-        },
-        view = {
-          width = 32,
-        },
-      })
-    end,
-  },
-}
+  }
+else
+  vim.notify('Failed to install vim-jetpack: ' .. jetpack_path, vim.log.levels.ERROR)
+end
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -61,9 +76,9 @@ vim.opt.hlsearch = true
 vim.opt.termguicolors = true
 
 vim.g.everforest_background = 'hard'
-vim.g.everforest_better_performance = 1
+vim.g.everforest_better_performance = 0
 vim.g.everforest_cursor = 'red'
-vim.cmd('colorscheme everforest')
+pcall(vim.cmd.colorscheme, 'everforest')
 
 local opts = { noremap = true, silent = true }
 
@@ -77,7 +92,9 @@ vim.keymap.set('n', 'x', '"_x', opts)
 vim.keymap.set('n', '<leader>t', '<Cmd>NvimTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>s', '<Cmd>edit $MYVIMRC<CR>', opts)
 vim.keymap.set('n', '<leader>r', '<Cmd>source $MYVIMRC<CR>', opts)
-vim.keymap.set('n', '<leader>j', '<Cmd>JetpackSync<CR>', opts)
+if jetpack_can_sync then
+  vim.keymap.set('n', '<leader>j', '<Cmd>JetpackSync<CR>', opts)
+end
 vim.keymap.set('n', '<leader>w', '<Cmd>write<CR>', opts)
 vim.keymap.set('n', '<leader>q', '<Cmd>quit<CR>', opts)
 vim.keymap.set('i', 'jk', '<Esc>', opts)
