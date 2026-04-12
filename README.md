@@ -2,14 +2,16 @@
 
 # NixOS
 ```
-sudo nixos-rebuild switch --flake ./#nixos
+sudo nixos-rebuild switch --flake ./nixos#nixos
 ```
 ## 開発時
 確認
 ```
-nix flake show
-sudo nixos-rebuild switch --flake path:.#nixos
+nix flake show ./nixos
+sudo nixos-rebuild switch --flake ./nixos#nixos
 ```
+
+Home Manager で `/home/nixos/dotfiles/nvim-jetpack` を `~/.config/nvim` に symlink する。
 
 ## Codex skills
 repo-managed skill は `codex/skills/` 配下に置く。

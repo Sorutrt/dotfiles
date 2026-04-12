@@ -2,6 +2,7 @@
 
 let
   codexSkillRoot = ../codex/skills;
+  nvimConfigRoot = "${config.home.homeDirectory}/dotfiles/nvim-jetpack";
   managedCodexSkills =
     lib.unique (
       map
@@ -53,14 +54,20 @@ in
     nodejs_24
   ];
 
-  home.file = builtins.listToAttrs (
-    map
-      (relativePath:
-        lib.nameValuePair ".codex/skills/${relativePath}" {
-          source = codexSkillRoot + "/${relativePath}";
-        })
-      managedCodexSkills
-  );
+  home.file =
+    {
+      ".config/nvim" = {
+        source = config.lib.file.mkOutOfStoreSymlink nvimConfigRoot;
+      };
+    }
+    // builtins.listToAttrs (
+      map
+        (relativePath:
+          lib.nameValuePair ".codex/skills/${relativePath}" {
+            source = codexSkillRoot + "/${relativePath}";
+          })
+        managedCodexSkills
+    );
 
   programs.home-manager.enable = true;
 }
