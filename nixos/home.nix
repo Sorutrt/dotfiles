@@ -57,6 +57,7 @@ in
   home.file =
     {
       ".config/nvim" = {
+        force = true;
         source = config.lib.file.mkOutOfStoreSymlink nvimConfigRoot;
       };
     }
@@ -68,6 +69,14 @@ in
           })
         managedCodexSkills
     );
+
+  home.activation.relinkNvimConfig =
+    lib.hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary" ] ''
+      nvimConfigTarget="$HOME/.config/nvim"
+      if [[ -e "$nvimConfigTarget" || -L "$nvimConfigTarget" ]]; then
+        run rm -rf "$nvimConfigTarget"
+      fi
+    '';
 
   programs.home-manager.enable = true;
 }
