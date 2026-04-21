@@ -28,6 +28,11 @@
 !/nvim-win/
 !/nvim-win/*
 
+# coding agent
+!/codex/
+!/codex/skills/
+!/codex/skills/**
+
 # OS
 !/windows/
 !/windows/*
@@ -37,9 +42,6 @@
 !/nixos/flake.lock
 !/nixos/home.nix
 !/nixos/hosts/wsl-nixos/configration.nix
-!/codex/
-!/codex/skills/
-!/codex/skills/**
 
 # device 
 !/device/
