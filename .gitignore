@@ -2,6 +2,7 @@
 ### all ignore ###
 /*
 /.**
+*/.**
 
 ### not ignore ###
 !/.xprofile
