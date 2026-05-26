@@ -52,3 +52,25 @@ Describe "Test-DirectoryContentMatches" {
         Test-DirectoryContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $false
     }
 }
+
+Describe "Test-FileContentMatches" {
+    It "returns true for identical files" {
+        $expectedPath = Join-Path $TestDrive "expected.md"
+        $actualPath = Join-Path $TestDrive "actual.md"
+
+        Set-Content -Path $expectedPath -Value "same"
+        Set-Content -Path $actualPath -Value "same"
+
+        Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $true
+    }
+
+    It "returns false when file content differs" {
+        $expectedPath = Join-Path $TestDrive "expected.md"
+        $actualPath = Join-Path $TestDrive "actual.md"
+
+        Set-Content -Path $expectedPath -Value "same"
+        Set-Content -Path $actualPath -Value "different"
+
+        Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $false
+    }
+}

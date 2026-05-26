@@ -85,3 +85,23 @@ function Test-DirectoryContentMatches {
 
     return $true
 }
+
+function Test-FileContentMatches {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ExpectedPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ActualPath
+    )
+
+    if (-not (Test-Path -LiteralPath $ExpectedPath -PathType Leaf)) {
+        return $false
+    }
+
+    if (-not (Test-Path -LiteralPath $ActualPath -PathType Leaf)) {
+        return $false
+    }
+
+    return (Get-FileHash -LiteralPath $ExpectedPath).Hash -eq (Get-FileHash -LiteralPath $ActualPath).Hash
+}

@@ -172,3 +172,34 @@ if (Test-Path $sourceSkillRoot) {
 }
 
 # ------------------- end of Codex Skills ----------------------
+
+# --------------------------------------------------
+#
+#                  Codex AGENTS
+#
+# --------------------------------------------------
+$codexDir = Join-Path $env:USERPROFILE ".codex"
+$sourceCodexAgents = Join-Path $repoRoot "codex\AGENTS.md"
+$targetCodexAgents = Join-Path $codexDir "AGENTS.md"
+
+if (Test-Path -LiteralPath $sourceCodexAgents -PathType Leaf) {
+    Ensure-DirectoryPath -Path $codexDir
+
+    if (Test-Path -LiteralPath $targetCodexAgents) {
+        if (Test-IsReparsePoint -Path $targetCodexAgents) {
+            Remove-Item -LiteralPath $targetCodexAgents -Force
+        } elseif (Test-FileContentMatches -ExpectedPath $sourceCodexAgents -ActualPath $targetCodexAgents) {
+            Remove-Item -LiteralPath $targetCodexAgents -Force
+        } else {
+            Write-Warning "Skipping existing unmanaged Codex AGENTS file: $targetCodexAgents"
+        }
+    }
+
+    if (-not (Test-Path -LiteralPath $targetCodexAgents)) {
+        New-RepoLink -TargetPath $targetCodexAgents -SourcePath $sourceCodexAgents -Label "Link"
+    }
+} else {
+    Write-Host "No repo-managed Codex AGENTS file found at $sourceCodexAgents"
+}
+
+# ------------------- end of Codex AGENTS ----------------------
