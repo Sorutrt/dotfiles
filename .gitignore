@@ -41,8 +41,11 @@
 !/nixos/
 !/nixos/flake.nix
 !/nixos/flake.lock
-!/nixos/home.nix
+!/nixos/home/wsl-nixos.nix
+!/nixos/home/mba2013.nix
 !/nixos/hosts/wsl-nixos/configration.nix
+!/nixos/hosts/mba2013/configration.nix
+!/nixos/hosts/mba2013/hardware-configration.nix
 
 # device 
 !/device/

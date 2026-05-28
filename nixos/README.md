@@ -1,13 +1,13 @@
 # nix-config
 
 ```
-sudo nixos-rebuild switch --flake ./#nixos
+sudo nixos-rebuild switch --flake ./#nixos-wsl
 ```
 ## 開発時
 確認
 ```
 nix flake show
-sudo nixos-rebuild switch --flake path:.#nixos
+sudo nixos-rebuild switch --flake path:.#nixos-wsl
 ```
 
 ## codex(unstable) をアップデートする手順
@@ -25,5 +25,5 @@ nix eval --raw .#nixosConfigurations.nixos.pkgs.unstable.codex.version
 
 3) 反映
 ```
-sudo nixos-rebuild switch --flake .#nixos
+sudo nixos-rebuild switch --flake .#nixos-wsl
 ```
