@@ -44,12 +44,12 @@
     nixosConfigurations = {
 
       # ---------- WSL NixOS ------------------------
-      nixos-wsl = nixpkgs-2505.lib.nixosSystem {
+      wsl = nixpkgs-2505.lib.nixosSystem {
         inherit system;
 
         modules = [
           nixos-wsl.nixosModules.default
-          ./hosts/wsl-nixos/configuration.nix
+          ./hosts/wsl/configuration.nix
           (mkCommonOverlay nixpkgs-unstable)
 
           # home-manager settings
@@ -57,7 +57,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.nixos = import ./home/wsl-nixos.nix;
+            home-manager.users.nixos = import ./home/wsl.nix;
           }
           {
             system.stateVersion = "25.05";
