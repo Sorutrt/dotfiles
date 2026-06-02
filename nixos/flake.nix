@@ -57,7 +57,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.nixos = import ./home/nixos-wsl.nix;
+            home-manager.users.nixos = import ./home/wsl-nixos.nix;
           }
           {
             system.stateVersion = "25.05";
@@ -87,4 +87,3 @@
     }; 
   };
 }
-
