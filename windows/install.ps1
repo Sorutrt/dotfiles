@@ -1,3 +1,15 @@
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+
+    if (-not $pwsh) {
+        throw "PowerShell 7 or later is required. Install PowerShell 7, then run: pwsh -File $PSCommandPath"
+    }
+
+    Write-Host "PowerShell $($PSVersionTable.PSVersion) detected. Re-running with PowerShell 7+: $($pwsh.Source)"
+    & $pwsh.Source -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath @args
+    exit $LASTEXITCODE
+}
+
 # repo root
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 . (Join-Path $PSScriptRoot "lib\CodexSkills.ps1")
