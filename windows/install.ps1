@@ -130,6 +130,34 @@ New-RepoLink -TargetPath $nuConfig -SourcePath $sourceNuConfig -Label "Link"
 
 # --------------------------------------------------
 #
+#                  Starship
+#
+# --------------------------------------------------
+# Starship config directory
+$starshipConfigDir = Join-Path $env:USERPROFILE ".config"
+
+if (-not (Test-Path $starshipConfigDir)) {
+    New-Item -ItemType Directory -Path $starshipConfigDir | Out-Null
+}
+
+# path to target config
+$starshipConfig = Join-Path $starshipConfigDir "starship.toml"
+
+# source file (your repo)
+$sourceStarshipConfig = Join-Path $repoRoot "starship.toml"
+
+# remove existing config if it exists (file or symlink)
+if (Test-Path $starshipConfig) {
+    Remove-Item $starshipConfig -Force
+}
+
+# create symbolic link
+New-RepoLink -TargetPath $starshipConfig -SourcePath $sourceStarshipConfig -Label "Link"
+
+# ------------------- end of Starship ----------------------
+
+# --------------------------------------------------
+#
 #                  Codex Skills
 #
 # --------------------------------------------------
