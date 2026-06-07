@@ -35,6 +35,7 @@ in
     gcc
     python312
     nodejs_24
+    make
   ];
 
   home.file =
