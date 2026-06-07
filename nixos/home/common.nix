@@ -29,7 +29,7 @@ in
     nnn
     starship
 
-    mise
+    unstable.mise
 
     # 処理系
     gcc
