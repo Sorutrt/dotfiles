@@ -1,26 +1,25 @@
 {
   inputs = {
-    nixpkgs-2505.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-2511.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs-2505";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
     };
 
-    home-manager-2505 = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-2505";
-    };
     home-manager-2511 = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs-2511";
     };
-
+    home-manager-2605 = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
   };
 
-  outputs = { self, nixpkgs-2505, nixpkgs-2511, nixpkgs-unstable, nixos-wsl, home-manager-2505, home-manager-2511, ... }@inputs: 
+  outputs = { self, nixpkgs-2511, nixpkgs-2605, nixpkgs-unstable, nixos-wsl, home-manager-2511, home-manager-2605, ... }@inputs: 
   let
     system = "x86_64-linux";
 
@@ -44,7 +43,7 @@
     nixosConfigurations = {
 
       # ---------- WSL NixOS ------------------------
-      wsl = nixpkgs-2505.lib.nixosSystem {
+      wsl = nixpkgs-2605.lib.nixosSystem {
         inherit system;
 
         modules = [
@@ -53,14 +52,14 @@
           (mkCommonOverlay nixpkgs-unstable)
 
           # home-manager settings
-          home-manager-2505.nixosModules.home-manager
+          home-manager-2605.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.nixos = import ./home/wsl.nix;
           }
           {
-            system.stateVersion = "25.05";
+            system.stateVersion = "26.05";
           }
         ];
       };
