@@ -40,9 +40,12 @@
 !/windows/**
 !/flake.nix
 !/flake.lock
-!/home/wsl-nixos.nix
+!/home/
+!/home/common.nix
+!/home/wsl.nix
 !/home/mba2013.nix
-!/hosts/wsl-nixos/configration.nix
+!/hosts/
+!/hosts/wsl/configration.nix
 !/hosts/mba2013/configration.nix
 !/hosts/mba2013/hardware-configration.nix
 
