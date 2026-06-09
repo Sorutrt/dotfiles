@@ -38,14 +38,13 @@
 !/windows/
 !/windows/*
 !/windows/**
-!/nixos/
-!/nixos/flake.nix
-!/nixos/flake.lock
-!/nixos/home/wsl-nixos.nix
-!/nixos/home/mba2013.nix
-!/nixos/hosts/wsl-nixos/configration.nix
-!/nixos/hosts/mba2013/configration.nix
-!/nixos/hosts/mba2013/hardware-configration.nix
+!/flake.nix
+!/flake.lock
+!/home/wsl-nixos.nix
+!/home/mba2013.nix
+!/hosts/wsl-nixos/configration.nix
+!/hosts/mba2013/configration.nix
+!/hosts/mba2013/hardware-configration.nix
 
 # device 
 !/device/
