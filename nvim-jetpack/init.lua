@@ -14,44 +14,43 @@ end
 
 if jetpack_available then
   vim.cmd('packadd vim-jetpack')
-  require('jetpack.packer').add {
-    { 'tani/vim-jetpack' },
-    { 'sainnhe/everforest' },
-    {
-      'nvim-tree/nvim-web-devicons',
-      cmd = {
-        'NvimTreeOpen',
-        'NvimTreeClose',
-        'NvimTreeToggle',
-        'NvimTreeFocus',
-        'NvimTreeFindFile',
-      },
-    },
-    {
-      'nvim-tree/nvim-tree.lua',
-      cmd = {
-        'NvimTreeOpen',
-        'NvimTreeClose',
-        'NvimTreeToggle',
-        'NvimTreeFocus',
-        'NvimTreeFindFile',
-      },
-      config = function()
-        require('nvim-tree').setup({
-          renderer = {
-            group_empty = true,
-          },
-          update_focused_file = {
-            enable = true,
-            update_root = false,
-          },
-          view = {
-            width = 32,
-          },
-        })
-      end,
-    },
+
+  local jetpack = require('jetpack')
+  local nvim_tree_commands = {
+    'NvimTreeOpen',
+    'NvimTreeClose',
+    'NvimTreeToggle',
+    'NvimTreeFocus',
+    'NvimTreeFindFile',
   }
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'JetpackPost:nvim-tree.lua',
+    callback = function()
+      require('nvim-tree').setup({
+        renderer = {
+          group_empty = true,
+        },
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+        view = {
+          width = 32,
+        },
+      })
+    end,
+  })
+
+  jetpack.begin()
+  jetpack.add('tani/vim-jetpack', { opt = true })
+  jetpack.add('sainnhe/everforest')
+  jetpack.add('nvim-tree/nvim-web-devicons', { opt = true })
+  jetpack.add('nvim-tree/nvim-tree.lua', {
+    cmd = nvim_tree_commands,
+    requires = { 'nvim-web-devicons' },
+  })
+  jetpack['end']()
 else
   vim.notify('Failed to install vim-jetpack: ' .. jetpack_path, vim.log.levels.ERROR)
 end
