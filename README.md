@@ -2,14 +2,14 @@
 
 ## NixOS
 ```
-sudo nixos-rebuild switch --flake ./nixos#wsl
+sudo nixos-rebuild switch --flake ./#wsl
 ```
 
 ### 開発時
 確認
 ```
 nix flake show ./wsl
-sudo nixos-rebuild switch --flake ./nixos#wsl
+sudo nixos-rebuild switch --flake ./#wsl
 ```
 
 Home Manager で `/home/nixos/dotfiles/nvim-jetpack` を `~/.config/nvim` に symlink する。
