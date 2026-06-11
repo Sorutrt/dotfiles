@@ -4,6 +4,7 @@ let
   codexSkillRoot = "${config.home.homeDirectory}/dotfiles/codex/skills";
   codexSkillSourceRoot = ../codex/skills;
   nvimConfigRoot = "${config.home.homeDirectory}/dotfiles/nvim-jetpack";
+  nushellConfigFile = "${config.home.homeDirectory}/dotfiles/nushell/config.nu";
 
   findCodexSkillDirs =
     relativePath: path:
@@ -56,9 +57,6 @@ in
     vim
     neovim
 
-    # Shell
-    nushell
-
     # CLI
     nnn
     starship
@@ -79,6 +77,10 @@ in
         force = true;
         source = config.lib.file.mkOutOfStoreSymlink nvimConfigRoot;
       };
+      ".config/nushell/config.nu" = {
+        force = true;
+        source = config.lib.file.mkOutOfStoreSymlink nushellConfigFile;
+      };
     }
     // codexSkillFiles;
 
@@ -90,5 +92,6 @@ in
       fi
     '';
 
+  programs.nushell.enable = true;
   programs.home-manager.enable = true;
 }

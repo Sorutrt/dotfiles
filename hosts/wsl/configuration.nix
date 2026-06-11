@@ -16,6 +16,9 @@
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 
+  environment.shells = [ pkgs.nushell ];
+  users.defaultUserShell = pkgs.nushell;
+
   services.journald.extraConfig = ''
     SystemMaxUse=50M
   '';
