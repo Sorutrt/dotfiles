@@ -44,7 +44,7 @@ in
         force = true;
         source = config.lib.file.mkOutOfStoreSymlink nvimConfigRoot;
       };
-      ".codex/skills/public" = {
+      ".codex/skills" = {
         force = true;
         source = config.lib.file.mkOutOfStoreSymlink codexSkillRoot;
       };
