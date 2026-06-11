@@ -62,6 +62,7 @@ in
     # CLI
     nnn
     starship
+    glow
 
     unstable.mise
 
