@@ -45,6 +45,7 @@ in
         source = config.lib.file.mkOutOfStoreSymlink nvimConfigRoot;
       };
       ".codex/skills/public" = {
+        force = true;
         source = config.lib.file.mkOutOfStoreSymlink codexSkillRoot;
       };
     };
@@ -57,6 +58,5 @@ in
       fi
     '';
 
-  
   programs.home-manager.enable = true;
 }
