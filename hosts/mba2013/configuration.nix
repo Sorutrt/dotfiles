@@ -136,10 +136,13 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.90"
-  ];
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "broadcom-sta-6.30.223.271-59-6.18.34"
+    ];
+  };
+   
   hardware.enableRedistributableFirmware = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [
     broadcom_sta
