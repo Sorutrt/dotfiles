@@ -44,6 +44,7 @@ in
     # common tools
     wget
     unstable.fzf
+    ripgrep
 
     # VCS
     git
