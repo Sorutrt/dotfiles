@@ -55,6 +55,11 @@
     ];
     fontconfig = {
       enable = true;
+      antialias = true;
+      hinting = {
+        enable = true;
+      };
+
       defaultFonts = {
         sansSerif = [
           "Noto Sans"
