@@ -1,7 +1,8 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   hyprlandConfigFile = "${config.home.homeDirectory}/dotfiles/hypr/hyprland.lua";
+
 in
 {
   imports = [
@@ -11,6 +12,10 @@ in
   home.username = "sorutrt";
   home.homeDirectory = "/home/sorutrt";
   home.stateVersion = "26.05";
+
+  home.packages = with pkgs; [
+    brightnessctl
+  ];
 
   home.file.".config/hypr/hyprland.lua" = {
     force = true;
