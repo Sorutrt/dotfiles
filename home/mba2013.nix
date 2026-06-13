@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  hyprlandConfigFile = "../hypr/hyprland.lua";
+  hyprlandConfigFile = "${config.home.homeDirectory}/dotfiles/hypr/hyprland.lua";
 in
 {
   imports = [
@@ -16,8 +16,4 @@ in
     force = true;
     source = config.lib.file.mkOutOfStoreSymlink hyprlandConfigFile;
   };
-
-  home.packages = [
-
-  ];
 }

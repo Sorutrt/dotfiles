@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  codexSkillRoot = "../codex/skills";
+  codexSkillRoot = "${config.home.homeDirectory}/dotfiles/codex/skills";
   codexSkillSourceRoot = ../codex/skills;
-  nvimConfigRoot = "../nvim-jetpack";
-  nushellConfigFile = "../nushell/config.nu";
+  nvimConfigRoot = "${config.home.homeDirectory}/dotfiles/nvim-jetpack";
+  nushellConfigFile = "${config.home.homeDirectory}/dotfiles/nushell/config.nu";
 
   findCodexSkillDirs =
     relativePath: path:
