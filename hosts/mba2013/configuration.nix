@@ -48,6 +48,9 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   };
 
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+  ];
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
