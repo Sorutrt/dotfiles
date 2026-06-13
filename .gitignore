@@ -57,5 +57,9 @@
 !/device/kbd/HHKB/
 !/device/kbd/HHKB/*.hks
 
+# GUI
+!/hypr/
+!/hypr/hyprland.lua
+
 !/README.md
 !.gitignore
