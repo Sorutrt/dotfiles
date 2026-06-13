@@ -75,7 +75,10 @@
     ];
   };
 
-  # programs.firefox.enable = true;
+  programs = {
+    firefox.enable = true;
+    hyprland.enable = true;
+  };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -86,6 +89,7 @@
     curl
     pciutils
     usbutils
+    kitty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
