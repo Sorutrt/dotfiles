@@ -33,9 +33,9 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
+  console = {
   #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
+      keyMap = "ja_JP.UTF-8";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
