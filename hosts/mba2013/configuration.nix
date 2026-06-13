@@ -37,7 +37,7 @@
   #   font = "Lat2-Terminus16";
       keyMap = "ja_JP.UTF-8";
   #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
