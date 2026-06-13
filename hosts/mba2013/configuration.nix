@@ -48,9 +48,24 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   };
 
-  fonts.packages = with pkgs; [
-    noto-fonts-cjk-sans
-  ];
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts-cjk-sans
+      plemoljp
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK JP"
+        ];
+        monospace = [
+          "plemoljp"
+        ];
+      };
+    };
+  };
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
