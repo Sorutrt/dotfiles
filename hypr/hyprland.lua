@@ -218,7 +218,7 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "",
+        kb_layout  = "jp",
         kb_variant = "",
         kb_model   = "",
         kb_options = "",
