@@ -20,6 +20,7 @@
 # aliases
 alias lg = lazygit
 
+alias "winget upgrade all" = winget upgrade --all --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
 
 # starship settings
 mkdir ($nu.data-dir | path join "vendor/autoload")
