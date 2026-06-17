@@ -1,9 +1,13 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+command_timeout = 100
+
 [directory]
 truncation_length = 3
 style = "bold cyan"
+truncate_to_repo = false
+read_only = ""
 
 # battery display config
 [battery]
@@ -16,3 +20,11 @@ discharging_symbol = '💀 '
 threshold = 10
 style = 'bold red'
 
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[package]
+disabled = true
