@@ -5,6 +5,30 @@
 sudo nixos-rebuild switch --flake ./#wsl
 ```
 
+### mba2013 kanata
+`mba2013` では kanata を system service として起動する。通常ユーザーには `input` / `uinput` グループを付けず、専用 system user の `kanata` だけが入力デバイスと `/dev/uinput` にアクセスする。
+
+反映:
+```
+sudo nixos-rebuild switch --flake .#mba2013
+```
+
+確認:
+```
+systemctl status kanata
+journalctl -u kanata -b
+ls -l /dev/uinput
+id sorutrt
+id kanata
+```
+
+keymap は `kanata/kanata.kbd` で管理し、NixOS が `/etc/kanata.kbd` に配置する。まずは CapsLock 単押し Esc、長押し Ctrl の最小設定にしている。
+
+読み取り対象キーボードを明示的に絞る場合は、実機で次を確認して `hosts/mba2013/kanata.nix` の `keyboardDevices` に `event-kbd` のパスを追加する。
+```
+ls -l /dev/input/by-id/ /dev/input/by-path/
+```
+
 ### 開発時
 確認
 ```

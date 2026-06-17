@@ -1,0 +1,11 @@
+(defcfg
+  linux-continue-if-no-devs-found yes)
+
+(defsrc
+  caps)
+
+(defalias
+  caps-esc-ctrl (tap-hold 200 200 esc lctl))
+
+(deflayer base
+  @caps-esc-ctrl)
