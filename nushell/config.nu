@@ -18,6 +18,7 @@
 # them for future reference.
 
 $env.config.show_banner = false
+$env.config.buffer_editor = "nvim"
 
 # aliases
 alias lg = lazygit
