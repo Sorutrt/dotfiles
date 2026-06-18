@@ -17,6 +17,8 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+$env.config.show_banner = false
+
 # aliases
 alias lg = lazygit
 
