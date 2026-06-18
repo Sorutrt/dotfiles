@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  codexAgentsFile = "${config.home.homeDirectory}/dotfiles/codex/AGENTS.md";
   codexSkillRoot = "${config.home.homeDirectory}/dotfiles/codex/skills";
   codexSkillSourceRoot = ../codex/skills;
   nvimConfigRoot = "${config.home.homeDirectory}/dotfiles/nvim-jetpack";
@@ -81,6 +82,10 @@ in
       ".config/nushell/config.nu" = {
         force = true;
         source = config.lib.file.mkOutOfStoreSymlink nushellConfigFile;
+      };
+      ".codex/AGENTS.md" = {
+        force = true;
+        source = config.lib.file.mkOutOfStoreSymlink codexAgentsFile;
       };
     }
     // codexSkillFiles;
