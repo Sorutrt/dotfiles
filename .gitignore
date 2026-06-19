@@ -31,6 +31,9 @@
 
 # coding agent
 !/codex/
+!/codex/AGENTS.md
+!/codex/rules/
+!/codex/rules/*
 !/codex/skills/
 !/codex/skills/**
 

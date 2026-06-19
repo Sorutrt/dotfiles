@@ -59,6 +59,20 @@ If both fail, treat `jj` as unavailable in the current shell and fix the environ
 
 ## Failure Log
 
+### 2026-06-19: `jj` lock creation can fail from sandboxed `codex/` cwd
+
+- Symptom: `jj file list` or other read-looking commands fail with `Failed to take lock for Git import/export` and `Read-only file system`.
+- Cause: the jj repository root is `/home/nixos/dotfiles`, but a Codex session may start in `/home/nixos/dotfiles/codex` with write access only under `codex/`; jj still needs to write locks under `/home/nixos/dotfiles/.jj`.
+- Corrected workflow: run jj from the repository root and request escalation when the command needs to snapshot or touch `.jj` locks.
+- Guardrail: do not retry the same jj command unescorted after this error; either rerun with scoped escalation or use `git status --short` only as a read-only compatibility check.
+
+### 2026-06-19: Empty `codex/.git` makes jj report tracked files as deleted
+
+- Symptom: `jj status` reports tracked `codex/` files as deleted while `git status --short` only reports modified files.
+- Cause: empty special directories such as `codex/.git`, `codex/.agents`, and `codex/.codex` can appear in the Codex workspace; jj treats `codex/.git` as a nested repository boundary and skips snapshotting `codex/`.
+- Corrected workflow: confirm with `find codex -maxdepth 2 -type d -name .git -o -name .agents -o -name .codex`, remove those empty directories with `rmdir`, then rerun `jj status`.
+- Guardrail: when jj and git disagree about `codex/` files, check for these empty directories before trying `jj restore`, `jj file track`, or repeated status commands.
+
 ### 2026-05-14: `jj` not on PATH in Codex PowerShell
 
 - Symptom: running `jj status` returned `The term 'jj' is not recognized as a name of a cmdlet, function, script file, or executable program.`
