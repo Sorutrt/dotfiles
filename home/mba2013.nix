@@ -18,6 +18,7 @@ in
 
   home.packages = with pkgs; [
     brightnessctl
+    bottom
     discord
     mozcTool
     playerctl
