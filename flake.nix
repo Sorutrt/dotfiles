@@ -13,12 +13,25 @@
     };
   };
 
-  outputs = { self, nixpkgs-2605, nixpkgs-unstable, nixos-wsl, home-manager-2605, ... }@inputs: 
+  outputs = { self, nixpkgs-2605, nixpkgs-unstable, nixos-wsl, home-manager-2605, ... }@inputs:
   let
     system = "x86_64-linux";
 
-    mkCommonOverlay = nixpkgs-unstable: 
-    ({ config, pkgs, ... }: 
+    commonNixosModule = { pkgs, ... }: {
+      system.stateVersion = "26.05";
+
+      environment.shells = [ pkgs.nushell ];
+      users.defaultUserShell = pkgs.nushell;
+
+      nix = {
+        settings = {
+          experimental-features = [ "nix-command" "flakes" ];
+        };
+      };
+    };
+
+    mkCommonOverlay = nixpkgs-unstable:
+    ({ config, pkgs, ... }:
       {
         nixpkgs.config.allowUnfree = true;
 
@@ -48,6 +61,12 @@
         ];
       }
     );
+
+    mkHomeManagerModule = user: homeModule: {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.${user} = import homeModule;
+    };
   in
   {
     nixosConfigurations = {
@@ -59,18 +78,12 @@
         modules = [
           nixos-wsl.nixosModules.default
           ./hosts/wsl/configuration.nix
+          commonNixosModule
           (mkCommonOverlay nixpkgs-unstable)
 
           # home-manager settings
           home-manager-2605.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nixos = import ./home/wsl.nix;
-          }
-          {
-            system.stateVersion = "26.05";
-          }
+          (mkHomeManagerModule "nixos" ./home/wsl.nix)
         ];
       };
 
@@ -78,21 +91,17 @@
       mba2013 = nixpkgs-2605.lib.nixosSystem {
         inherit system;
         modules = [
+          ./hosts/mba2013/hardware-configuration.nix
+          ./hosts/mba2013/kanata.nix
           ./hosts/mba2013/configuration.nix
+          commonNixosModule
           (mkCommonOverlay nixpkgs-unstable)
 
           # home-manager settings
           home-manager-2605.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.sorutrt = import ./home/mba2013.nix;
-          }
-          {
-            system.stateVersion = "26.05";
-          }
+          (mkHomeManagerModule "sorutrt" ./home/mba2013.nix)
         ];
       };
-    }; 
+    };
   };
 }

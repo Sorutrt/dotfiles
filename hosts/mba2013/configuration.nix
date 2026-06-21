@@ -5,12 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./kanata.nix
-    ];
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
@@ -18,9 +12,6 @@
   security.sudo .wheelNeedsPassword = true;
 
   networking.hostName = "mba2013-nixos"; # Define your hostname.
-
-  environment.shells = [ pkgs.nushell ];
-  users.defaultUserShell = pkgs.nushell;
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
@@ -158,31 +149,9 @@
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "26.05"; # Did you read the comment?
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [
-      "broadcom-sta-6.30.223.271-59-6.18.34"
-    ];
-  };
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-59-6.18.34"
+  ];
    
   hardware.enableRedistributableFirmware = true;
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -195,10 +164,4 @@
     "brcmsmac"
     "ssb"
   ];
-
-  nix = {
-    settings = {
-      experimental-features = ["nix-command" "flakes"];
-    };
-  };
 }
