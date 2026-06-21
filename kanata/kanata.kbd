@@ -1,0 +1,15 @@
+(defcfg
+  linux-continue-if-no-devs-found yes)
+
+(defsrc
+  caps muhenkan h j k l)
+
+(defalias
+  caps-esc-ctrl (tap-hold 200 200 esc lctl)
+  muhenkan-nav (tap-hold-press 200 200 muhenkan (layer-while-held nav)))
+
+(deflayer base
+  @caps-esc-ctrl @muhenkan-nav h j k l)
+
+(deflayer nav
+  _ _ left down up rght)

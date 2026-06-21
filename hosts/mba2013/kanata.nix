@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 let
   kanataUser = "kanata";
@@ -39,6 +39,7 @@ in
 
   systemd.services.kanata-default = {
     aliases = [ "kanata.service" ];
+    restartTriggers = [ config.environment.etc."kanata.kbd".source ];
     serviceConfig = {
       DynamicUser = lib.mkForce false;
       User = kanataUser;
