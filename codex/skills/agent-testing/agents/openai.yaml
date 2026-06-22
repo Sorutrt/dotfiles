@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Testing"
+  short_description: "Use an agent to test implementation behavior"
+  default_prompt: "Use $agent-testing to have an independent agent test the implementation behavior."
