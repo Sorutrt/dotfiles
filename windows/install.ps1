@@ -243,3 +243,19 @@ if (Test-Path -LiteralPath $sourceCodexAgents -PathType Leaf) {
 }
 
 # ------------------- end of Codex AGENTS ----------------------
+
+# --------------------------------------------------
+#
+#                  Codex tokf hook
+#
+# --------------------------------------------------
+$tokf = Get-Command tokf -ErrorAction SilentlyContinue
+
+if ($tokf) {
+    Write-Host "Installing tokf Codex hook..."
+    & $tokf.Source hook install --global --tool codex
+} else {
+    Write-Host "tokf not found. Skipping Codex tokf hook installation."
+}
+
+# ------------------- end of Codex tokf hook ----------------------

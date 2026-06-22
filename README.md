@@ -47,8 +47,10 @@ repo-managed skill は `codex/skills/` 配下に置く。
 - `SKILL.md` を持つディレクトリが skill として公開対象になる
 
 - NixOS: `home/common.nix` が `SKILL.md` を持つ skill を `~/.codex/skills/...` に symlink し、グローバル用の `codex/AGENTS.md` を `~/.codex/AGENTS.md` に link する
+- NixOS: `home/common.nix` が `tokf hook install --global --tool codex` を activation で実行する
 - Windows: `windows/install.ps1` が相対パスを維持して `~/.codex/skills/...` の symlink を張る
 - Windows: `windows/install.ps1` がグローバル用の `codex/AGENTS.md` を `~/.codex/AGENTS.md` に link する
+- Windows: `tokf` が PATH にある場合、`windows/install.ps1` が `tokf hook install --global --tool codex` を実行する
 - 既存の unmanaged skill が repo 側と同一内容なら、Windows では repo-managed な symlink に置き換える
 - `.codex/skills/.system` や他のローカル skill はこの repo では管理しない
 

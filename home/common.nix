@@ -78,6 +78,7 @@ in
     # AI
     # pkgs.codex is old. so install codex from official script.
     bubblewrap
+    tokf
 
     # Editor
     vim
@@ -129,6 +130,11 @@ in
       if [[ -e "$nvimConfigTarget" || -L "$nvimConfigTarget" ]]; then
         run rm -rf "$nvimConfigTarget"
       fi
+    '';
+
+  home.activation.installTokfCodexHook =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run ${pkgs.tokf}/bin/tokf hook install --global --tool codex
     '';
 
   programs.nushell.enable = true;
