@@ -23,7 +23,7 @@ in
     description = "kanata service user";
   };
 
-  environment.etc."kanata.kbd".source = ../../kanata/kanata.kbd;
+  environment.etc."kanata.kbd".source = ../../device/kbd/kanata/kanata.kbd;
 
   services.udev.extraRules = ''
     KERNEL=="uinput", GROUP="uinput", MODE="0660", OPTIONS+="static_node=uinput"
