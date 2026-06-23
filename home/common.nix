@@ -51,6 +51,7 @@ in
     git
     lazygit
     unstable.jujutsu
+    actionlint
 
     # AI
     unstable.codex
