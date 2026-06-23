@@ -59,6 +59,13 @@ If both fail, treat `jj` as unavailable in the current shell and fix the environ
 
 ## Failure Log
 
+### 2026-06-23: `jj describe --no-editor` is not supported in jj 0.42.0
+
+- Symptom: `jj describe --no-editor -m "..."` failed with `unexpected argument '--no-editor' found`.
+- Cause: jj 0.42.0 does not provide `--no-editor`; `-m/--message` already sets the description without opening an editor unless `--editor` is passed.
+- Corrected workflow: use `jj describe -m "msg"` for headless description updates.
+- Guardrail: check `jj describe --help` before adding editor-related flags across jj versions.
+
 ### 2026-06-19: `jj` lock creation can fail from sandboxed `codex/` cwd
 
 - Symptom: `jj file list` or other read-looking commands fail with `Failed to take lock for Git import/export` and `Read-only file system`.
@@ -87,5 +94,5 @@ If both fail, treat `jj` as unavailable in the current shell and fix the environ
 
 ## Automation Tips
 
-- Pass `--no-editor` to commands like `describe` in headless flows.
+- For `jj describe`, pass `-m "msg"` in headless flows. In jj 0.42.0, `--no-editor` is not supported and `-m/--message` already avoids opening an editor.
 - Prefer stable, template-based output when a tool needs to parse `jj` results.
