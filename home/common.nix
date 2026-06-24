@@ -2,22 +2,24 @@
 
 let
   installOrUpdateCodex = pkgs.writeShellScript "install-or-update-codex" ''
-    set -euo pipefail
+    set -u
 
-    export CODEX_NON_INTERACTIVE=1
+    export HOME="${config.home.homeDirectory}"
+    export NPM_CONFIG_PREFIX="$HOME/.local"
     export PATH="${lib.makeBinPath [
-      pkgs.bash
-      pkgs.curl
+      pkgs.nodejs_24
       pkgs.coreutils
-      pkgs.gnutar
-      pkgs.gzip
-    ]}:${config.home.homeDirectory}/.local/bin:$PATH"
+    ]}:$HOME/.local/bin:$PATH"
 
-    mkdir -p "${config.home.homeDirectory}/.local/bin"
-    ${pkgs.curl}/bin/curl -fsSL https://chatgpt.com/codex/install.sh | ${pkgs.bash}/bin/bash
+    mkdir -p "$HOME/.local"
 
-    if command -v codex >/dev/null 2>&1; then
-      codex --version || true
+    if npm install -g @openai/codex@latest; then
+      if command -v codex >/dev/null 2>&1; then
+        codex --version || true
+      fi
+    else
+      echo "warning: failed to install/update Codex; keeping existing installation if any" >&2
+      exit 0
     fi
   '';
 
