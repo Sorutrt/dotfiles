@@ -6,9 +6,14 @@ let
 
     export CODEX_NON_INTERACTIVE=1
     export PATH="${lib.makeBinPath [
-
+      pkgs.bash
+      pkgs.curl
+      pkgs.coreutils
+      pkgs.gnutar
+      pkgs.gzip
     ]}:${config.home.homeDirectory}/.local/bin:$PATH"
 
+    mkdir -p "${config.home.homeDirectory}/.local/bin"
     ${pkgs.curl}/bin/curl -fsSL https://chatgpt.com/codex/install.sh | ${pkgs.bash}/bin/bash
 
     if command -v codex >/dev/null 2>&1; then
@@ -88,6 +93,15 @@ in
     nodejs_24
     gnumake
   ];
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
+
+  home.activation.installOrUpdateCodex =
+    lib.hm.dag.entryAfter [ "installPackages" ] ''
+      run ${installOrUpdateCodex}
+    '';
 
   home.file =
     {

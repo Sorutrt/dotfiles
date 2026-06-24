@@ -17,6 +17,11 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+let local_bin = ($nu.home-path | path join ".local/bin")
+if ($local_bin | path exists) {
+  $env.PATH = ($env.PATH | prepend $local_bin | uniq)
+}
+
 $env.config.show_banner = false
 $env.config.buffer_editor = "nvim"
 
