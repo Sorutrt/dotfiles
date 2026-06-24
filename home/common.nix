@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  installOrUpdateCodex = pkgs.writeShellScript "install-or-update-codex" ''
+  installOrUpdateCodex = pkgs.writeShellScriptBin "install-or-update-codex" ''
     set -u
 
     export HOME="${config.home.homeDirectory}"
@@ -76,7 +76,8 @@ in
     actionlint
 
     # AI
-    # pkgs.codex is old. so install codex from official script.
+    # pkgs.codex is old, so install/update Codex manually with install-or-update-codex.
+    installOrUpdateCodex
 
     # Editor
     vim
@@ -99,11 +100,6 @@ in
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/bin"
   ];
-
-  home.activation.installOrUpdateCodex =
-    lib.hm.dag.entryAfter [ "installPackages" ] ''
-      run ${installOrUpdateCodex}
-    '';
 
   home.file =
     {
