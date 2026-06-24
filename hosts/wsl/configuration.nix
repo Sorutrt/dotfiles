@@ -16,6 +16,9 @@
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 
+  # Windows の PATH を WSL に混ぜない
+  wsl.interop.includePath = false;
+
   environment.shells = [ pkgs.nushell ];
   users.defaultUserShell = pkgs.nushell;
 
