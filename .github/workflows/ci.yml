@@ -34,8 +34,20 @@ jobs:
       - name: Check flake
         run: nix flake check --no-write-lock-file
 
-      - name: Check NixOS build plans
+      - name: Check NixOS builds
         run: |
-          nix build --dry-run --no-link \
+          nix build --no-link \
             .#nixosConfigurations.wsl.config.system.build.toplevel \
             .#nixosConfigurations.mba2013.config.system.build.toplevel
+
+      - name: Check WSL Home Manager activation
+        run: |
+          nix build --out-link hm-wsl \
+            .#nixosConfigurations.wsl.config.home-manager.users.nixos.home.activationPackage
+
+          sudo useradd --create-home --home-dir /home/nixos nixos
+          sudo rm -rf /home/nixos/dotfiles
+          sudo ln -s "$GITHUB_WORKSPACE" /home/nixos/dotfiles
+          sudo chown -h nixos:nixos /home/nixos/dotfiles
+
+          sudo -u nixos env HOME=/home/nixos ./hm-wsl/activate
