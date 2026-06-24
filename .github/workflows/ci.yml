@@ -39,3 +39,24 @@ jobs:
           nix build --dry-run --no-link \
             .#nixosConfigurations.wsl.config.system.build.toplevel \
             .#nixosConfigurations.mba2013.config.system.build.toplevel
+
+  windows-core:
+    name: Windows core tests
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run PowerShell tests
+        shell: pwsh
+        run: |
+          $testScripts = @(
+            "windows/tests/Links.Tests.ps1",
+            "windows/tests/CodexSkills.Tests.ps1"
+          )
+
+          foreach ($testScript in $testScripts) {
+            & $testScript
+          }

@@ -1,76 +1,105 @@
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+. (Join-Path $here "TestAssertions.ps1")
 . (Join-Path $here "..\lib\CodexSkills.ps1")
 
-Describe "Get-CodexManagedSkillMappings" {
-    It "finds managed skills at the root and under public namespaces" {
-        $sourceRoot = Join-Path $TestDrive "skills"
-        $targetRoot = Join-Path $TestDrive "published"
+Invoke-Test "Get-CodexManagedSkillMappings finds managed skills at the root and under public namespaces" {
+    param($TestRoot)
 
-        New-Item -ItemType Directory -Path (Join-Path $sourceRoot "dotfiles-maintainer") -Force | Out-Null
-        New-Item -ItemType Directory -Path (Join-Path $sourceRoot "public\aivoice-editor-api") -Force | Out-Null
-        New-Item -ItemType Directory -Path (Join-Path $sourceRoot "public\ignored-parent") -Force | Out-Null
+    $sourceRoot = Join-Path $TestRoot "skills"
+    $targetRoot = Join-Path $TestRoot "published"
+    $publicRoot = Join-Path $sourceRoot "public"
+    $publicSkillPath = Join-Path $publicRoot "aivoice-editor-api"
+    $ignoredPublicPath = Join-Path $publicRoot "ignored-parent"
+    $dotfilesSkillPath = Join-Path $sourceRoot "dotfiles-maintainer"
+    $publicSkillRelativePath = Join-Path "public" "aivoice-editor-api"
+    $ignoredPublicRelativePath = Join-Path "public" "ignored-parent"
 
-        Set-Content -Path (Join-Path $sourceRoot "dotfiles-maintainer\SKILL.md") -Value "# skill"
-        Set-Content -Path (Join-Path $sourceRoot "public\aivoice-editor-api\SKILL.md") -Value "# skill"
+    New-Item -ItemType Directory -Path $dotfilesSkillPath -Force | Out-Null
+    New-Item -ItemType Directory -Path $publicSkillPath -Force | Out-Null
+    New-Item -ItemType Directory -Path $ignoredPublicPath -Force | Out-Null
 
-        $mappings = Get-CodexManagedSkillMappings -SourceRoot $sourceRoot -TargetRoot $targetRoot
-        $relativePaths = $mappings | Select-Object -ExpandProperty RelativePath
+    Set-Content -Path (Join-Path $dotfilesSkillPath "SKILL.md") -Value "# skill"
+    Set-Content -Path (Join-Path $publicSkillPath "SKILL.md") -Value "# skill"
 
-        $mappings.Count | Should Be 2
-        ($relativePaths -contains "dotfiles-maintainer") | Should Be $true
-        ($relativePaths -contains "public\aivoice-editor-api") | Should Be $true
-        ($relativePaths -contains "public\ignored-parent") | Should Be $false
-    }
+    $mappings = Get-CodexManagedSkillMappings -SourceRoot $sourceRoot -TargetRoot $targetRoot
+    $relativePaths = $mappings | Select-Object -ExpandProperty RelativePath
+
+    Assert-Equal -Actual $mappings.Count -Expected 2
+    Assert-True `
+        -Condition ($relativePaths -contains "dotfiles-maintainer") `
+        -Message "Expected root skill to be mapped."
+    Assert-True `
+        -Condition ($relativePaths -contains $publicSkillRelativePath) `
+        -Message "Expected public skill to be mapped."
+    Assert-True `
+        -Condition (-not ($relativePaths -contains $ignoredPublicRelativePath)) `
+        -Message "Expected directory without SKILL.md to be ignored."
 }
 
-Describe "Test-DirectoryContentMatches" {
-    It "returns true for identical directory trees" {
-        $expectedPath = Join-Path $TestDrive "expected"
-        $actualPath = Join-Path $TestDrive "actual"
+Invoke-Test "Test-DirectoryContentMatches returns true for identical directory trees" {
+    param($TestRoot)
 
-        New-Item -ItemType Directory -Path (Join-Path $expectedPath "references") -Force | Out-Null
-        New-Item -ItemType Directory -Path (Join-Path $actualPath "references") -Force | Out-Null
+    $expectedPath = Join-Path $TestRoot "expected"
+    $actualPath = Join-Path $TestRoot "actual"
+    $expectedReferencesPath = Join-Path $expectedPath "references"
+    $actualReferencesPath = Join-Path $actualPath "references"
 
-        Set-Content -Path (Join-Path $expectedPath "SKILL.md") -Value "skill"
-        Set-Content -Path (Join-Path $expectedPath "references\api.md") -Value "reference"
-        Set-Content -Path (Join-Path $actualPath "SKILL.md") -Value "skill"
-        Set-Content -Path (Join-Path $actualPath "references\api.md") -Value "reference"
+    New-Item -ItemType Directory -Path $expectedReferencesPath -Force | Out-Null
+    New-Item -ItemType Directory -Path $actualReferencesPath -Force | Out-Null
 
-        Test-DirectoryContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $true
-    }
+    Set-Content -Path (Join-Path $expectedPath "SKILL.md") -Value "skill"
+    Set-Content -Path (Join-Path $expectedReferencesPath "api.md") -Value "reference"
+    Set-Content -Path (Join-Path $actualPath "SKILL.md") -Value "skill"
+    Set-Content -Path (Join-Path $actualReferencesPath "api.md") -Value "reference"
 
-    It "returns false when file content differs" {
-        $expectedPath = Join-Path $TestDrive "expected"
-        $actualPath = Join-Path $TestDrive "actual"
-
-        New-Item -ItemType Directory -Path $expectedPath -Force | Out-Null
-        New-Item -ItemType Directory -Path $actualPath -Force | Out-Null
-
-        Set-Content -Path (Join-Path $expectedPath "SKILL.md") -Value "skill"
-        Set-Content -Path (Join-Path $actualPath "SKILL.md") -Value "different"
-
-        Test-DirectoryContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $false
-    }
+    Assert-True `
+        -Condition (Test-DirectoryContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath) `
+        -Message "Expected matching directories to compare equal."
 }
 
-Describe "Test-FileContentMatches" {
-    It "returns true for identical files" {
-        $expectedPath = Join-Path $TestDrive "expected.md"
-        $actualPath = Join-Path $TestDrive "actual.md"
+Invoke-Test "Test-DirectoryContentMatches returns false when file content differs" {
+    param($TestRoot)
 
-        Set-Content -Path $expectedPath -Value "same"
-        Set-Content -Path $actualPath -Value "same"
+    $expectedPath = Join-Path $TestRoot "expected"
+    $actualPath = Join-Path $TestRoot "actual"
 
-        Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $true
-    }
+    New-Item -ItemType Directory -Path $expectedPath -Force | Out-Null
+    New-Item -ItemType Directory -Path $actualPath -Force | Out-Null
 
-    It "returns false when file content differs" {
-        $expectedPath = Join-Path $TestDrive "expected.md"
-        $actualPath = Join-Path $TestDrive "actual.md"
+    Set-Content -Path (Join-Path $expectedPath "SKILL.md") -Value "skill"
+    Set-Content -Path (Join-Path $actualPath "SKILL.md") -Value "different"
 
-        Set-Content -Path $expectedPath -Value "same"
-        Set-Content -Path $actualPath -Value "different"
-
-        Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath | Should Be $false
-    }
+    Assert-True `
+        -Condition (-not (Test-DirectoryContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath)) `
+        -Message "Expected directories with different file content to compare unequal."
 }
+
+Invoke-Test "Test-FileContentMatches returns true for identical files" {
+    param($TestRoot)
+
+    $expectedPath = Join-Path $TestRoot "expected.md"
+    $actualPath = Join-Path $TestRoot "actual.md"
+
+    Set-Content -Path $expectedPath -Value "same"
+    Set-Content -Path $actualPath -Value "same"
+
+    Assert-True `
+        -Condition (Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath) `
+        -Message "Expected matching files to compare equal."
+}
+
+Invoke-Test "Test-FileContentMatches returns false when file content differs" {
+    param($TestRoot)
+
+    $expectedPath = Join-Path $TestRoot "expected.md"
+    $actualPath = Join-Path $TestRoot "actual.md"
+
+    Set-Content -Path $expectedPath -Value "same"
+    Set-Content -Path $actualPath -Value "different"
+
+    Assert-True `
+        -Condition (-not (Test-FileContentMatches -ExpectedPath $expectedPath -ActualPath $actualPath)) `
+        -Message "Expected files with different content to compare unequal."
+}
+
+Complete-TestRun

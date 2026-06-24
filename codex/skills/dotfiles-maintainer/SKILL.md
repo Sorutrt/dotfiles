@@ -25,3 +25,13 @@ Use this skill when editing this repository. Keep changes scoped to the target p
 - When adding a new repo-managed Codex skill, ensure `home/common.nix` and `windows/install.ps1` continue to publish it into `~/.codex/skills/`.
 - Update the root `README.md` when changing installation or synchronization behavior.
 - Leave `.codex/skills/.system` and other unmanaged user-local Codex state untouched.
+
+## CI and Tests
+
+- Keep CI focused on fast checks and behavior that must not break. Prefer Nix evaluation/build-plan checks plus small tests for extracted core logic over running full setup scripts.
+- Do not put `windows/install.ps1`, `winget`, or `git clone` installation paths in CI unless explicitly requested. Test reusable logic under `windows/lib/` instead.
+- Prefer PowerShell tests that run with only `pwsh`. `nixpkgs#powershell` provides PowerShell but not Pester, and `nix search nixpkgs pester --json` returned no package in this repo's environment.
+- Validate PowerShell tests locally with:
+  `nix shell nixpkgs#powershell -c pwsh -NoProfile -Command '$testScripts = @("windows/tests/Links.Tests.ps1", "windows/tests/CodexSkills.Tests.ps1"); foreach ($testScript in $testScripts) { & $testScript }'`
+- When running Windows behavior tests on Linux through `nixpkgs#powershell`, skip Windows-specific filesystem operations such as junction creation, but keep them active in `windows-latest` CI.
+- If `nix shell` or `nix search` fails in the sandbox because it cannot access the Nix daemon or `/home/nixos/.cache/nix`, rerun the same command with the required sandbox escalation instead of changing the test approach.
