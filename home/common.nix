@@ -54,7 +54,6 @@ in
     actionlint
 
     # AI
-    unstable.codex
 
     # Editor
     vim
