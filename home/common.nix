@@ -77,6 +77,7 @@ in
 
     # AI
     # pkgs.codex is old. so install codex from official script.
+    bubblewrap
 
     # Editor
     vim
