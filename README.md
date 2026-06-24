@@ -38,23 +38,6 @@ sudo nixos-rebuild switch --flake ./#wsl
 
 Home Manager で `/home/nixos/dotfiles/nvim-jetpack` を `~/.config/nvim` に symlink する。
 
-### codex(unstable) をアップデートする手順
-このリポジトリでは `nixpkgs-unstable` の入力を更新して `unstable.codex` を最新にします。
-
-1) lock の更新
-```
-nix flake update nixpkgs-unstable
-```
-
-2) (任意) 反映予定のバージョン確認
-```
-nix eval --raw .#nixosConfigurations.nixos.pkgs.unstable.codex.version
-```
-
-3) 反映
-```
-sudo nixos-rebuild switch --flake .#wsl
-```
 
 ## Codex skills
 repo-managed skill は `codex/skills/` 配下に置く。

@@ -1,6 +1,21 @@
 { config, lib, pkgs, ... }:
 
 let
+  installOrUpdateCodex = pkgs.writeShellScript "install-or-update-codex" ''
+    set -euo pipefail
+
+    export CODEX_NON_INTERACTIVE=1
+    export PATH="${lib.makeBinPath [
+
+    ]}:${config.home.homeDirectory}/.local/bin:$PATH"
+
+    ${pkgs.curl}/bin/curl -fsSL https://chatgpt.com/codex/install.sh | ${pkgs.bash}/bin/bash
+
+    if command -v codex >/dev/null 2>&1; then
+      codex --version || true
+    fi
+  '';
+
   codexAgentsFile = "${config.home.homeDirectory}/dotfiles/codex/AGENTS.md";
   codexSkillRoot = "${config.home.homeDirectory}/dotfiles/codex/skills";
   codexSkillSourceRoot = ../codex/skills;
@@ -54,6 +69,7 @@ in
     actionlint
 
     # AI
+    # pkgs.codex is old. so install codex from official script.
 
     # Editor
     vim
