@@ -17,7 +17,7 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-let local_bin = ($nu.home-path | path join ".local/bin")
+let local_bin = "~/.local/bin"
 if ($local_bin | path exists) {
   $env.PATH = ($env.PATH | prepend $local_bin | uniq)
 }
