@@ -92,7 +92,6 @@
         inherit system;
         modules = [
           ./hosts/mba2013/hardware-configuration.nix
-          ./hosts/mba2013/kanata.nix
           ./hosts/mba2013/configuration.nix
           commonNixosModule
           (mkCommonOverlay nixpkgs-unstable)

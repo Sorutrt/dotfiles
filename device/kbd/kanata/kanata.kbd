@@ -1,4 +1,5 @@
 (defcfg
+  process-unmapped-keys yes
   linux-continue-if-no-devs-found yes)
 
 (defsrc

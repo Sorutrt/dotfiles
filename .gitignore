@@ -42,10 +42,6 @@
 !/codex/skills/
 !/codex/skills/**
 
-# keyboard remapping
-!/kanata/
-!/kanata/*.kbd
-
 # OS
 !/windows/
 !/windows/*
