@@ -23,6 +23,7 @@ in
     mozcTool
     playerctl
     wl-clipboard
+    waybar
   ];
 
   home.file.".config/niri/config.kdl" = {

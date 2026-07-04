@@ -23,6 +23,7 @@ prefer-no-csd
 
 spawn-at-startup "kitty"
 spawn-at-startup "fcitx5" "-d"
+spawn-at-startup "waybar"
 
 binds {
     Mod+Q hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
