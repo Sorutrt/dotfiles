@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  hyprlandConfigFile = "${config.home.homeDirectory}/dotfiles/hypr/hyprland.lua";
+  niriConfigFile = "${config.home.homeDirectory}/dotfiles/niri/config.kdl";
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
@@ -24,8 +24,8 @@ in
     wl-clipboard
   ];
 
-  home.file.".config/hypr/hyprland.lua" = {
+  home.file.".config/niri/config.kdl" = {
     force = true;
-    source = config.lib.file.mkOutOfStoreSymlink hyprlandConfigFile;
+    source = config.lib.file.mkOutOfStoreSymlink niriConfigFile;
   };
 }

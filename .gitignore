@@ -72,6 +72,8 @@
 # GUI
 !/hypr/
 !/hypr/hyprland.lua
+!/niri/
+!/niri/config.kdl
 
 !/README.md
 !/AGENTS.md
