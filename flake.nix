@@ -105,7 +105,7 @@
       tpe14 = nixpkgs-2605.lib.nixosSystem {
         inherit system;
         modules = [
-          # ./hosts/tpe14/hardware-configuration.nix
+          ./hosts/tpe14/hardware-configuration.nix
           ./hosts/tpe14/configuration.nix
           commonNixosModule
           (mkCommonOverlay nixpkgs-unstable)
