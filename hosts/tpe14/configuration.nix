@@ -36,8 +36,7 @@
   };
   console = {
   #   font = "Lat2-Terminus16";
-      keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
+      useXkbConfig = true;
   };
 
   fonts = {
@@ -74,8 +73,10 @@
   
 
   # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+  services.xserver.xkb = {
+    layout = "us";
+    options = "terminate:ctrl_alt_bksp,caps:ctrl_modifier";
+  };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
