@@ -36,7 +36,7 @@
   };
   console = {
   #   font = "Lat2-Terminus16";
-      keyMap = "jp106";
+      keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   };
 

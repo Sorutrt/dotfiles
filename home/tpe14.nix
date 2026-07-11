@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  niriConfigFile = "${config.home.homeDirectory}/dotfiles/niri/config.kdl";
+  niriConfigFile = "${config.home.homeDirectory}/dotfiles/niri/tpe14.kdl";
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
