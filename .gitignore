@@ -49,13 +49,9 @@
 !/flake.nix
 !/flake.lock
 !/home/
-!/home/common.nix
-!/home/wsl.nix
-!/home/mba2013.nix
+!/home/*
 !/hosts/
-!/hosts/wsl/configration.nix
-!/hosts/mba2013/configration.nix
-!/hosts/mba2013/hardware-configration.nix
+!/hosts/*
 
 # device 
 !/device/

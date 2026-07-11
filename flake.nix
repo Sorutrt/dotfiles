@@ -101,6 +101,21 @@
           (mkHomeManagerModule "sorutrt" ./home/mba2013.nix)
         ];
       };
+      # --------- ThinkPad E14 Gen6 -------------------
+      mba2013 = nixpkgs-2605.lib.nixosSystem {
+        inherit system;
+        modules = [
+          # ./hosts/tpe14/hardware-configuration.nix
+          ./hosts/tpe14/configuration.nix
+          commonNixosModule
+          (mkCommonOverlay nixpkgs-unstable)
+
+          # home-manager settings
+          home-manager-2605.nixosModules.home-manager
+          (mkHomeManagerModule "sorutrt" ./home/tpe14.nix)
+        ];
+      };
+
     };
   };
 }
