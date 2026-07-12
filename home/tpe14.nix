@@ -3,6 +3,7 @@
 let
   niriConfigFile = "${config.home.homeDirectory}/dotfiles/niri/tpe14.kdl";
   waybarConfigFile = "${config.home.homeDirectory}/dotfiles/waybar/config.jsonc";
+  waybarCssFile = "${config.home.homeDirectory}/dotfiles/waybar/style.css";
 in
 {
   imports = [
@@ -21,4 +22,9 @@ in
     force = true;
     source = config.lib.file.mkOutOfStoreSymlink waybarConfigFile;
   };
+  home.file.".config/waybar/style.css" = {
+    force = true;
+    source = config.lib.file.mkOutOfStoreSymlink waybarCssFile;
+  };
+
 }

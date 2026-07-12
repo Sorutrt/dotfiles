@@ -12,10 +12,16 @@ input {
 }
 
 layout {
-    gaps 16
+    gaps 8 
 
     focus-ring {
         width 2
+    }
+
+    preset-column-widths {
+      proportion 0.3
+      proportion 0.5
+      proportion 0.6
     }
 }
 
@@ -31,7 +37,11 @@ binds {
     Mod+E hotkey-overlay-title="Open File Manager: dolphin" { spawn "dolphin"; }
     Mod+R hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
     Alt+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
+
+    // window size
     Mod+F { toggle-window-floating; }
+    Mod+M { maximize-window-to-edges; }
+    Mod+I { switch-preset-column-width; }
 
     Mod+H { focus-column-left; }
     Mod+J { focus-window-or-workspace-down; }

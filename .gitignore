@@ -68,6 +68,7 @@
 !/niri/config.kdl
 !/waybar/
 !/waybar/config.jsonc
+!/waybar/style.css
 
 !/README.md
 !/AGENTS.md

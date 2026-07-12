@@ -1,0 +1,402 @@
+
+/* Catppuccin accent colors */
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba6f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color blue #89b4fa;
+@define-color sky #89dceb;
+@define-color lavender #b4befe;
+
+@define-color accent @primary;
+@define-color accent_color @primary;
+@define-color theme_bg_color @surface;
+@define-color theme_fg_color @on_surface;
+@define-color accent_bg_color @primary;
+@define-color theme_selected_fg_color @on_primary;
+@define-color success_color @primary;
+@define-color warning_color @tertiary;
+@define-color error_color @error;
+
+@define-color border alpha(@outline, 0.63);
+@define-color border-alt alpha(@outline, 0.63);
+@define-color text @on_surface;
+@define-color text-alt @on_primary;
+@define-color hover alpha(@primary, 0.7);
+@define-color surface_transparent alpha(@surface_container, 0.85);
+@define-color surface_light alpha(@surface_container, 0.7);
+@define-color surface_mid alpha(@surface_container, 0.5);
+@define-color surface_dark alpha(@surface_container, 0.3);
+@define-color bg_glass alpha(@surface, 0.85);
+@define-color border_light alpha(@border, 0.5);
+@define-color text_dim alpha(@text, 0.5);
+@define-color text_dimmer alpha(@text, 0.3);
+
+/* General */
+* {
+  margin: 0;
+  padding: 0px;
+  background: transparent;
+  font-family: "PlemolJP Console NF", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  min-height: 15px;
+}
+
+window#waybar > * {
+  margin: 3px 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+window#waybar {
+  background: @bg_glass;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 1px solid @border;
+}
+
+/* Tooltip */
+tooltip {
+  background: @bg_glass;
+  color: @text;
+  border-radius: 8px;
+  border: 1px solid @border;
+  padding: 6px;
+}
+
+tooltip * {
+  background: transparent;
+  color: @text;
+}
+
+/* Shared cards */
+#custom-weather,
+#mpris,
+#window,
+#clock,
+#power-profiles-daemon,
+#custom-hypridle,
+#custom-notifications,
+#custom-power {
+  margin: 3px 3px;
+  background: @surface_light;
+  color: @text;
+  border-radius: 8px;
+}
+
+#custom-weather,
+#clock,
+#power-profiles-daemon,
+#custom-hypridle,
+#custom-notifications,
+#custom-power {
+  border: 1px solid @border;
+}
+
+#mpris,
+#window {
+  border: 1px solid @border_light;
+  padding: 0px 8px;
+}
+
+/* Workspaces */
+#workspaces {
+  margin: 3px 3px;
+  margin-left: 2px;
+  padding: 2px 3px;
+  border-radius: 8px;
+  background: @surface_mid;
+  color: @text;
+  border: 1px solid @border;
+}
+
+#workspaces button {
+  box-shadow: none;
+  text-shadow: none;
+  border: none;
+  margin: 0px 2px;
+  background: transparent;
+  color: @text_dimmer;
+}
+
+#workspaces button.active {
+  color: @primary;
+}
+#workspaces button:hover {
+  color: @text;
+}
+#workspaces button.urgent {
+  color: @error;
+}
+
+/* Weather */
+#custom-weather {
+  padding: 0px 8px;
+  color: @sky;
+}
+
+/* MPRIS */
+#mpris {
+  padding: 0px 8px;
+}
+#mpris.playing,
+#mpris.spotify.playing {
+  color: @green;
+}
+#mpris.paused {
+  color: @text_dim;
+}
+#mpris.stopped {
+  color: @text_dimmer;
+}
+#mpris.spotify {
+  border-left: 2px solid @green;
+}
+#mpris.vlc {
+  border-left: 2px solid @blue;
+}
+#mpris.vlc.playing {
+  color: @blue;
+}
+#mpris.firefox {
+  border-left: 2px solid @peach;
+}
+#mpris.firefox.playing {
+  color: @peach;
+}
+
+/* Updates */
+#custom-updates {
+  margin: 3px 3px;
+  border-radius: 8px;
+  padding: 1px 8px 0px 6px;
+  background: @surface_container;
+  border: none;
+}
+
+#custom-updates.green {
+  background: @green;
+  color: @surface;
+}
+#custom-updates.yellow {
+  background: @yellow;
+  color: @surface;
+}
+#custom-updates.red {
+  background: @red;
+  color: @surface;
+}
+
+/* Window */
+#window {
+  background: @surface_mid;
+  padding: 0px 8px;
+}
+
+/* CPU / Memory / Temperature */
+#cpu,
+#memory,
+#temperature {
+  border: 1px solid @border_light;
+  background: @surface_light;
+  margin: 3px 2px;
+  padding: 0px 6px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bolder;
+}
+
+#cpu {
+  color: @blue;
+}
+#memory {
+  color: @teal;
+}
+#temperature {
+  color: @peach;
+}
+
+/* Audio chain */
+#pulseaudio,
+#backlight,
+#bluetooth,
+#battery {
+  background: @surface_light;
+  margin: 3px 2px;
+  border: 1px solid @border_light;
+  border-radius: 8px;
+}
+
+#pulseaudio {
+  padding: 0 6px;
+  color: @teal;
+}
+
+#backlight {
+  padding: 0 8px 0 6px;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  color: @yellow;
+}
+
+#bluetooth {
+  padding: 0 6px 0 4px;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  color: @blue;
+}
+
+#bluetooth.disabled {
+  color: @text_dim;
+}
+
+#battery {
+  padding: 0 6px 0 4px;
+  color: @green;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @green;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+}
+
+/* Network */
+#network {
+  border: 1px solid @border_light;
+  background: @surface_light;
+  margin: 3px 2px;
+  padding: 0 10px 0 5px;
+  border-radius: 8px;
+  color: @lavender;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+/* Shared hover */
+#mpris:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#custom-hypridle:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+  color: @hover;
+  background: @surface_transparent;
+}
+
+#pulseaudio:hover,
+#backlight:hover,
+#bluetooth:hover,
+#battery:hover,
+#network:hover {
+  color: shade(@hover, 1.25);
+}
+
+/* Tray */
+#tray {
+  margin: 3px 3px;
+  padding: 0px 5px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray menu {
+  border-radius: 8px;
+  color: @text;
+  background-color: @surface_container;
+  padding: 5px;
+  border: 1px solid @border;
+}
+
+/* Clock */
+#clock {
+  padding: 0px 8px;
+  font-weight: bold;
+  background: alpha(@primary, 0.15);
+  border-color: @primary;
+}
+
+/* Power profile */
+#power-profiles-daemon {
+  margin-right: 0;
+  border-radius: 8px 0 0 8px;
+  border-right: none;
+  padding: 0 12px 0 6px;
+}
+
+#power-profiles-daemon.balanced {
+  color: @text;
+}
+#power-profiles-daemon.performance {
+  color: @red;
+}
+#power-profiles-daemon.power-saver {
+  color: @green;
+}
+
+/* Hypridle */
+#custom-hypridle {
+  margin-right: 0;
+  margin-left: 0;
+  border-radius: 0;
+  padding: 0 10px 0 6px;
+  color: @sky;
+}
+
+#custom-hypridle.notactive {
+  color: @red;
+}
+
+/* Notifications */
+#custom-notifications {
+  font-size: 12px;
+  margin-right: 0;
+  margin-left: 0;
+  border-radius: 0;
+  border-right: none;
+  border-left: none;
+  padding: 0 8px 0 6px;
+  color: @peach;
+}
+
+/* Power */
+#custom-power {
+  font-size: 12px;
+  margin-right: 4px;
+  margin-left: 0;
+  border-radius: 0 8px 8px 0;
+  padding: 0 10px 0 6px;
+  color: @red;
+}
+
+#custom-power:hover {
+  color: @maroon;
+}
+
+/* Hide empty modules */
+window#waybar.empty #window,
+#custom-updates.none,
+#taskbar.empty,
+#tray.empty {
+  border: 0px;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+  min-width: 0px;
+}

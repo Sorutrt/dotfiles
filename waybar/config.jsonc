@@ -9,10 +9,45 @@
     "network",
     "pulseaudio",
     "cpu",
+    "memory",
     "battery"
   ],
   "clock": {
     "format": "{:L%H:%M}",
     "format-alt": "{:L%Y %B %d %A}"
+  },
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "󱤚 {essid}",
+    "format-alt": "󱤚",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": "Disconnected",
+    "tooltip-format": " {ifname} via {gwaddri}",
+    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 20,
+    "on-click-right": "kitty --class floating -e nmtui"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "states": {
+      "warning": 30,
+      "critical": 10
+    }
+  },
+  "cpu": {
+    "format": " {usage}%"
+  },
+  "memory": {
+    "format": " {percentage}%"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": ["", "", ""]
   }
 }
