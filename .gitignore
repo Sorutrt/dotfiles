@@ -66,6 +66,8 @@
 !/hypr/hyprland.lua
 !/niri/
 !/niri/config.kdl
+!/waybar/
+!/waybar/config.jsonc
 
 !/README.md
 !/AGENTS.md
