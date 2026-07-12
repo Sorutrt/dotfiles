@@ -42,7 +42,8 @@
   fonts = {
     packages = with pkgs; [
       noto-fonts-cjk-sans
-      plemoljp
+      noto-fonts-color-emoji
+      plemoljp-nf
     ];
     fontconfig = {
       enable = true;
@@ -57,7 +58,10 @@
           "Noto Sans CJK JP"
         ];
         monospace = [
-          "plemoljp"
+          "PlemolJP NF"
+        ];
+        emoji = [
+          "Noto Color Emoji"
         ];
       };
     };
