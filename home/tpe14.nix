@@ -19,11 +19,12 @@ in
   home.packages = with pkgs; [
     brightnessctl
     bottom
-    discord
+    unstable.discord
     mozcTool
     playerctl
     wl-clipboard
     waybar
+    xwayland-satellite
   ];
 
   home.file.".config/niri/config.kdl" = {
