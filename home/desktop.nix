@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 let
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
@@ -17,6 +17,7 @@ in
   home.packages = with pkgs; [
     brightnessctl
     bottom
+    inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop
     mozcTool
     playerctl
     wl-clipboard

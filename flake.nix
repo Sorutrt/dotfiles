@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -65,6 +66,7 @@
     mkHomeManagerModule = user: homeModule: {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.users.${user} = import homeModule;
     };
   in
