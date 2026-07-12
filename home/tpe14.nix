@@ -14,6 +14,7 @@ in
     unstable.discord
     xwayland-satellite
     obsidian
+    onlyoffice-desktopeditors
   ];
 
   home.file.".config/niri/config.kdl".source =
