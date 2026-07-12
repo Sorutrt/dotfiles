@@ -13,6 +13,7 @@ in
   home.packages = with pkgs; [
     unstable.discord
     xwayland-satellite
+    obsidian
   ];
 
   home.file.".config/niri/config.kdl".source =
