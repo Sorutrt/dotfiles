@@ -90,6 +90,7 @@ in
     glow
 
     unstable.mise
+    p7zip
 
     # 処理系
     gcc
