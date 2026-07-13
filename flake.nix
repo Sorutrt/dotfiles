@@ -3,6 +3,7 @@
     nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
+    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -92,6 +93,7 @@
       # --------- Macbook Air Mid 2013 -------------------
       mba2013 = nixpkgs-2605.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/mba2013/hardware-configuration.nix
           ./hosts/mba2013/configuration.nix
@@ -106,6 +108,7 @@
       # --------- ThinkPad E14 Gen6 -------------------
       tpe14 = nixpkgs-2605.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/tpe14/hardware-configuration.nix
           ./hosts/tpe14/configuration.nix
