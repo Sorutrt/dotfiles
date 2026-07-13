@@ -33,6 +33,8 @@ alias "jj clone" = jj git clone
 
 alias "winget upgrade all" = winget upgrade --all --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
 
+alias "niri" = exec niri-session
+
 # starship settings
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
