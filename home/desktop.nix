@@ -40,4 +40,8 @@ in
     enable = true;
     forceXWayland = false;
   };
+
+  systemd.user.services.copyq.Service.Environment = [
+    "QT_QPA_PLATFORM=wayland"
+  ];
 }
