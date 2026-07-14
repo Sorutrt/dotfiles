@@ -9,6 +9,8 @@
 
   networking.hostName = "tpe14-nixos";
 
+  services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+
   console.useXkbConfig = true;
 
   fonts = {
