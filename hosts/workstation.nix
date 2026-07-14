@@ -36,6 +36,19 @@
 
   services.power-profiles-daemon.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards.default.settings = {
+      main.space = "overload(navigation, space)";
+      navigation = {
+        h = "left";
+        j = "down";
+        k = "up";
+        l = "right";
+      };
+    };
+  };
+
   users.users.sorutrt = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
