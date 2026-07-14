@@ -64,6 +64,8 @@
 # GUI
 !/hypr/
 !/hypr/hyprland.lua
+!/copyq/
+!/copyq/copyq.conf
 !/niri/
 !/niri/config.kdl
 !/waybar/

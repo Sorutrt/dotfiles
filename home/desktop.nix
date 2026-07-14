@@ -1,6 +1,7 @@
 { config, inputs, pkgs, ... }:
 
 let
+  copyqConfigFile = "${config.home.homeDirectory}/dotfiles/copyq/copyq.conf";
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
@@ -25,9 +26,18 @@ in
   ];
 
   home.file.".config/niri/config.kdl".force = true;
+  home.file.".config/copyq/copyq.conf" = {
+    force = true;
+    source = config.lib.file.mkOutOfStoreSymlink copyqConfigFile;
+  };
 
   gtk = {
     enable = true;
     colorScheme = "dark";
+  };
+
+  services.copyq = {
+    enable = true;
+    forceXWayland = false;
   };
 }
