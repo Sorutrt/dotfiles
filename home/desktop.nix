@@ -1,8 +1,10 @@
 { config, inputs, pkgs, ... }:
 
 let
-  footConfigFile = "${config.home.homeDirectory}/dotfiles/foot/foot.ini";
-  copyqConfigFile = "${config.home.homeDirectory}/dotfiles/copyq/copyq.conf";
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  dotfilesDir = "${config.home.homeDirectory}/dotfiles/";
+  footConfigFile = "${dotfilesDir}/foot/foot.ini";
+  copyqConfigFile = "${dotfilesDir}/copyq/copyq.conf";
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
@@ -28,11 +30,12 @@ in
     waybar
   ];
 
-  home.file.".config/foot/foot.ini".source = config.lib.file.mkOutOfStoreSymlink footConfigFile;
-  home.file.".config/niri/config.kdl".force = true;
-  home.file.".config/copyq/copyq.conf" = {
-    force = true;
-    source = config.lib.file.mkOutOfStoreSymlink copyqConfigFile;
+  xdg.configFile = {
+    "foot/foot.ini".source = mkOutOfStoreSymlink footConfigFile;
+        "copyq/copyq.conf" = {
+      force = true;
+      source = mkOutOfStoreSymlink copyqConfigFile;
+    };
   };
 
   gtk = {

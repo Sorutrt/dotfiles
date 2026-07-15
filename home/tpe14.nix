@@ -22,7 +22,7 @@ in
   imports = [
     ./desktop.nix
   ];
-
+  
   home.packages = with pkgs; [
     discordWayland
     xwayland-satellite
@@ -30,16 +30,18 @@ in
     onlyoffice-desktopeditors
   ];
 
-  home.file.".config/niri/config.kdl".source =
-    config.lib.file.mkOutOfStoreSymlink niriConfigFile;
-
-  home.file.".config/waybar/config.jsonc" = {
-    force = true;
-    source = config.lib.file.mkOutOfStoreSymlink waybarConfigFile;
+  xdg.configFile = {
+    "niri/config.kdl" = {
+      force = true;
+      source = config.lib.file.mkOutOfStoreSymlink niriConfigFile;
+    };
+    "waybar/config.jsonc" = {
+      force = true;
+      source = config.lib.file.mkOutOfStoreSymlink waybarConfigFile;
+    };
+    "waybar/style.css" = {
+      force = true;
+      source = config.lib.file.mkOutOfStoreSymlink waybarCssFile;
+    };
   };
-  home.file.".config/waybar/style.css" = {
-    force = true;
-    source = config.lib.file.mkOutOfStoreSymlink waybarCssFile;
-  };
-
 }
