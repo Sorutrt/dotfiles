@@ -19,7 +19,7 @@
       plemoljp-nf
     ];
     fontconfig.defaultFonts = {
-      monospace = [ "PlemolJP Console NF" ];
+      monospace = [ "PlemolJP35 Console NF" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
