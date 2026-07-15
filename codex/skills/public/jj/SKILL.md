@@ -17,6 +17,7 @@ A compact cheat-sheet for day-to-day **Jujutsu (`jj`)** work in this environment
 | Start a new change | `jj new` | Fork a fresh change from `@` |
 | Write/update message | `jj describe -m "msg"` | Set the description of the working change |
 | Split hunks interactively | `jj split` | Carve the current change into smaller ones |
+| Discard the current change | `jj abandon` | Abandon `@` and create a clean working-copy commit on its parent |
 | Undo last operation | `jj undo` | Revert a recent operation via the op log |
 | List operations | `jj op log` | Show operation history |
 | Push | `jj git push` | Push through Git remotes |
@@ -44,6 +45,7 @@ A compact cheat-sheet for day-to-day **Jujutsu (`jj`)** work in this environment
 
 - Use `jj` as the default VCS interface for this project.
 - Use `git` only when a read-only compatibility check or an external integration requires it.
+- To discard an entirely incorrect working-copy change, inspect `jj status` and `jj diff`, then run `jj abandon`. Use `jj restore` or partial editing instead when any part must be kept.
 - Before doing a task that is obvious in Git but unclear in `jj`, look up the `jj` workflow first.
 - After learning a new `jj` workflow, add the result here with prerequisites, caveats, and an example when useful.
 - After a `jj` failure, record the symptom, cause, corrected workflow, and a next-time guardrail here.
