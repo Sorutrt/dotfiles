@@ -19,6 +19,7 @@ in
     brightnessctl
     bottom
     inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop
+    libnotify
     mozcTool
     playerctl
     wl-clipboard
@@ -40,6 +41,8 @@ in
     enable = true;
     forceXWayland = false;
   };
+
+  services.mako.enable = true;
 
   systemd.user.services.copyq.Service.Environment = [
     "QT_QPA_PLATFORM=wayland"

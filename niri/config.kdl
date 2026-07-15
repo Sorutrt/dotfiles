@@ -37,6 +37,7 @@ binds {
     Mod+E hotkey-overlay-title="Open File Manager: dolphin" { spawn "dolphin"; }
     Mod+R hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
     Alt+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
+    Print hotkey-overlay-title="Take a Window Screenshot" { spawn-sh "niri msg action screenshot-window && notify-send --app-name=niri --icon=camera-photo 'Screenshot' 'ウィンドウをクリップボードにコピーしました'"; }
 
     // window size
     Mod+F { toggle-window-floating; }

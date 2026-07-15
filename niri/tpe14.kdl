@@ -1,5 +1,9 @@
 include "/home/sorutrt/dotfiles/niri/config.kdl"
 
+binds {
+    XF86Launch7 hotkey-overlay-title="Take a Screenshot" { screenshot; }
+}
+
 input {
     keyboard {
         xkb {
