@@ -69,7 +69,6 @@
     curl
     pciutils
     usbutils
-    kitty
     rofi
   ];
 

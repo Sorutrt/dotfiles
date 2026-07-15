@@ -71,6 +71,8 @@
 !/waybar/
 !/waybar/config.jsonc
 !/waybar/style.css
+!/foot/
+!/foot/foot.ini
 
 !/README.md
 !/AGENTS.md

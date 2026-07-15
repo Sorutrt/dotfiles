@@ -27,12 +27,12 @@ layout {
 
 prefer-no-csd
 
-spawn-at-startup "kitty"
+spawn-at-startup "foot"
 spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "waybar"
 
 binds {
-    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
     Mod+Q repeat=false { close-window; }
     Mod+E hotkey-overlay-title="Open File Manager: dolphin" { spawn "dolphin"; }
     Mod+R hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
