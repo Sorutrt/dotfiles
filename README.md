@@ -20,8 +20,8 @@ systemctl status niri
 ### 開発時
 確認
 ```
-nix flake show ./wsl
-sudo nixos-rebuild switch --flake ./#wsl
+nix eval .#nixosConfigurations.tpe14.config.system.build.toplevel.drvPath
+sudo nixos-rebuild switch --flake ./#tpe14
 ```
 
 Home Manager で `/home/nixos/dotfiles/nvim-jetpack` を `~/.config/nvim` に symlink する。
