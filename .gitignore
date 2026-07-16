@@ -48,6 +48,8 @@
 !/windows/**
 !/flake.nix
 !/flake.lock
+!/overlays/
+!/overlays/*.nix
 !/home/
 !/home/*
 !/hosts/
