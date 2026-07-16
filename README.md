@@ -26,6 +26,14 @@ sudo nixos-rebuild switch --flake ./#tpe14
 
 Home Manager で `/home/nixos/dotfiles/nvim-jetpack` を `~/.config/nvim` に symlink する。
 
+### tokf の更新
+
+tokf のソースは `flake.lock` で固定している。更新するときは次を実行する。
+
+```sh
+nix flake update tokf
+```
+
 
 ## Codex skills
 repo-managed skill は `codex/skills/` 配下に置く。

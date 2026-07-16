@@ -4,6 +4,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
+    tokf = {
+      url = "github:mpecan/tokf";
+      flake = false;
+    };
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -15,7 +19,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-2605, nixpkgs-unstable, nixos-wsl, home-manager-2605, ... }@inputs:
+  outputs = { self, nixpkgs-2605, nixpkgs-unstable, nixos-wsl, home-manager-2605, tokf, ... }@inputs:
   let
     system = "x86_64-linux";
 
@@ -37,7 +41,7 @@
       };
     };
 
-    commonOverlayModule = import ./overlays { inherit nixpkgs-unstable; };
+    commonOverlayModule = import ./overlays { inherit nixpkgs-unstable tokf; };
 
     mkHomeManagerModule = user: homeModule: {
       home-manager.useGlobalPkgs = true;

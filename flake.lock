@@ -254,7 +254,8 @@
         "home-manager-2605": "home-manager-2605",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs-2605": "nixpkgs-2605",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "tokf": "tokf"
       }
     },
     "systems": {
@@ -284,6 +285,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tokf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783449548,
+        "narHash": "sha256-U1Zz3lshtYkBB0W1ugW9VOVj8LMALmWfmD1tIyAixyY=",
+        "owner": "mpecan",
+        "repo": "tokf",
+        "rev": "43706f210938285ebb7ff6ace9976cbb3f410781",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mpecan",
+        "repo": "tokf",
         "type": "github"
       }
     }
