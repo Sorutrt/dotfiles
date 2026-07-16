@@ -6,7 +6,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       unstable = import nixpkgs-unstable {
-        system = prev.system;
+        system = prev.stdenv.hostPlatform.system;
         config = prev.config; # allowUnfree などを引き継ぎ
       };
       tokf = final.rustPlatform.buildRustPackage rec {
