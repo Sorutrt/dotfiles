@@ -5,6 +5,7 @@ let
   dotfilesDir = "${config.home.homeDirectory}/dotfiles/";
   footConfigFile = "${dotfilesDir}/foot/foot.ini";
   copyqConfigFile = "${dotfilesDir}/copyq/copyq.conf";
+  makoConfigFile = "${dotfilesDir}/mako/config";
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
@@ -32,9 +33,13 @@ in
 
   xdg.configFile = {
     "foot/foot.ini".source = mkOutOfStoreSymlink footConfigFile;
-        "copyq/copyq.conf" = {
+    "copyq/copyq.conf" = {
       force = true;
       source = mkOutOfStoreSymlink copyqConfigFile;
+    };
+    "mako/config" = {
+      source = mkOutOfStoreSymlink makoConfigFile;
+      onChange = "${pkgs.mako}/bin/makoctl reload || true";
     };
   };
 

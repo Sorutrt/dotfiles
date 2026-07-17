@@ -75,6 +75,8 @@
 !/waybar/style.css
 !/foot/
 !/foot/foot.ini
+!/mako/
+!/mako/config
 
 !/README.md
 !/AGENTS.md
