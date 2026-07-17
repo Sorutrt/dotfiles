@@ -48,5 +48,6 @@
 - AGENTS.md には、このディレクトリで常に守るルールだけを書く。
 - 繰り返し使う具体的な手順、専門知識、参照資料、スクリプトは skill に置く。
 - `agents/skills/` の skill は Codex と Hermes で共有する。
+- 共有 skill の追加、移動、配布変更は `cross-agent-skill-management` skill を優先して参照する。
 - jj の具体的な運用は `jj` skill を優先して参照する。
 - dotfiles 固有の配置や配布ルールは `dotfiles-maintainer` skill を優先して参照する。

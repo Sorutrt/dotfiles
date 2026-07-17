@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cross-Agent Skill Management"
+  short_description: "Manage skills shared by Codex and Hermes"
+  default_prompt: "Use $cross-agent-skill-management to update shared agent skills and verify publication safely."
