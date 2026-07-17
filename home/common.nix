@@ -24,8 +24,8 @@ let
   '';
 
   codexAgentsFile = "${config.home.homeDirectory}/dotfiles/codex/AGENTS.md";
-  codexSkillRoot = "${config.home.homeDirectory}/dotfiles/codex/skills";
-  codexSkillSourceRoot = ../codex/skills;
+  sharedSkillRoot = "${config.home.homeDirectory}/dotfiles/agents/skills";
+  sharedSkillSourceRoot = ../agents/skills;
   nvimConfigRoot = "${config.home.homeDirectory}/dotfiles/nvim-jetpack";
   nushellConfigFile = "${config.home.homeDirectory}/dotfiles/nushell/config.nu";
 
@@ -47,7 +47,7 @@ let
         (builtins.readDir path)
     );
 
-  codexSkillDirs = findCodexSkillDirs "" codexSkillSourceRoot;
+  codexSkillDirs = findCodexSkillDirs "" sharedSkillSourceRoot;
 
   codexSkillFiles =
     lib.listToAttrs (
@@ -56,7 +56,7 @@ let
           name = ".codex/skills/${relativePath}";
           value = {
             force = true;
-            source = config.lib.file.mkOutOfStoreSymlink "${codexSkillRoot}/${relativePath}";
+            source = config.lib.file.mkOutOfStoreSymlink "${sharedSkillRoot}/${relativePath}";
           };
         })
         codexSkillDirs

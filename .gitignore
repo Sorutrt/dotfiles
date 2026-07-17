@@ -39,8 +39,9 @@
 !/codex/AGENTS.md
 !/codex/rules/
 !/codex/rules/*
-!/codex/skills/
-!/codex/skills/**
+!/agents/
+!/agents/skills/
+!/agents/skills/**
 
 # OS
 !/windows/

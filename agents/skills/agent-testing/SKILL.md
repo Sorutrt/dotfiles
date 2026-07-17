@@ -1,6 +1,6 @@
 ---
 name: agent-testing
-description: Guide for asking an independent agent to test or verify implementation behavior. Use when the user asks Codex to have another agent, subagent, or separate reviewer test changes; when a change needs independent behavioral verification; or when applying the testing policy from codex/AGENTS.md to validate expected behavior and preserved behavior without overfitting to the implementer's assumptions.
+description: Guide for asking an independent agent to test or verify implementation behavior. Use when the user asks a coding agent to have another agent, subagent, or separate reviewer test changes; or when a change needs independent behavioral verification without overfitting to the implementer's assumptions.
 ---
 
 # Agent Testing

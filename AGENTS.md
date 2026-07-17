@@ -43,9 +43,10 @@
 - セッションをまたいで再発しそうな失敗は、症状、原因、回避策を関連する skill に記録する。
 - sandbox、権限、ネットワークが原因と分かる失敗は、次回から必要な権限や代替コマンドを先に選ぶ。
 
-## Codex カスタマイズ
+## AI エージェントのカスタマイズ
 
 - AGENTS.md には、このディレクトリで常に守るルールだけを書く。
 - 繰り返し使う具体的な手順、専門知識、参照資料、スクリプトは skill に置く。
-- jj の具体的な運用は `skills/public/jj/` を優先して参照する。
-- dotfiles 固有の配置や配布ルールは `skills/dotfiles-maintainer/` を優先して参照する。
+- `agents/skills/` の skill は Codex と Hermes で共有する。
+- jj の具体的な運用は `jj` skill を優先して参照する。
+- dotfiles 固有の配置や配布ルールは `dotfiles-maintainer` skill を優先して参照する。

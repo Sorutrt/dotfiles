@@ -179,7 +179,7 @@ if (-not (Test-Path $codexSkillsDir)) {
     New-Item -ItemType Directory -Path $codexSkillsDir | Out-Null
 }
 
-$sourceSkillRoot = Join-Path $repoRoot "codex\skills"
+$sourceSkillRoot = Join-Path $repoRoot "agents\skills"
 
 if (Test-Path $sourceSkillRoot) {
     $skillMappings = Get-CodexManagedSkillMappings -SourceRoot $sourceSkillRoot -TargetRoot $codexSkillsDir

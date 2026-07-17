@@ -1,6 +1,6 @@
 ---
 name: dotfiles-maintainer
-description: Repository-specific guidance for maintaining the 58kok dotfiles repo across NixOS and Windows. Use when Codex needs to update shell configs, editor configs, Home Manager settings, Windows install scripts, or Codex-related files in this repository.
+description: Repository-specific guidance for maintaining the 58kok dotfiles repo across NixOS and Windows. Use when a coding agent needs to update shell configs, editor configs, Home Manager settings, Windows install scripts, or agent-related files in this repository.
 ---
 
 # Dotfiles Maintainer
@@ -15,8 +15,8 @@ Use this skill when editing this repository. Keep changes scoped to the target p
 - Put host-specific Home Manager settings in `home/<host>.nix`.
 - Put Windows setup logic under `windows/` and keep `windows/install.ps1` idempotent.
 - Keep shell and editor config in existing top-level folders such as `nushell/`, `fish/`, `zsh/`, and `nvim-*`.
-- Put repo-managed Codex skills under `codex/skills/<skill-name>/`.
-- Put reusable public skills under `codex/skills/public/<skill-name>/`.
+- Put repo-managed shared agent skills under `agents/skills/<skill-name>/`.
+- Put reusable public skills under `agents/skills/public/<skill-name>/`.
 
 ## Working Rules
 
@@ -24,9 +24,9 @@ Use this skill when editing this repository. Keep changes scoped to the target p
 - Prefer symlink-friendly layouts and repository-relative sources when wiring files into home directories.
 - Keep application settings in ordinary config files in this repository when the application supports them. Do not encode those settings directly as Nix attribute sets unless no usable config file exists or the user explicitly requests it.
 - Publish XDG config files with `xdg.configFile` and other home-relative config files with `home.file`. Prefer `mkOutOfStoreSymlink` when the file should remain directly editable from the repository.
-- When adding a new repo-managed Codex skill, ensure `home/common.nix` and `windows/install.ps1` continue to publish it into `~/.codex/skills/`.
+- When adding a new repo-managed shared skill, ensure Home Manager continues to publish it to both `~/.codex/skills/` and `~/.hermes/skills/`.
 - Update the root `README.md` when changing installation or synchronization behavior.
-- Leave `.codex/skills/.system` and other unmanaged user-local Codex state untouched.
+- Leave `.codex/skills/.system` and other unmanaged user-local Codex or Hermes state untouched.
 
 ## CI and Tests
 
