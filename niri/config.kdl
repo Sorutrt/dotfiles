@@ -56,6 +56,8 @@ binds {
 
     Mod+Shift+Left  { move-column-left; }
     Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-to-workspace-down; }
+    Mod+Shift+K { move-window-to-workspace-up; }
     Mod+Shift+Right { move-column-right; }
     Mod+Shift+L { move-column-right; }
     Mod+Shift+Up    { move-window-up; }
