@@ -29,6 +29,7 @@ in
     playerctl
     wl-clipboard
     waybar
+    kdePackages.dolphin
   ];
 
   xdg.configFile = {
