@@ -22,6 +22,8 @@ Use this skill when editing this repository. Keep changes scoped to the target p
 
 - Inspect the target platform before editing. Do not assume a Linux change should affect Windows, or the reverse.
 - Prefer symlink-friendly layouts and repository-relative sources when wiring files into home directories.
+- Keep application settings in ordinary config files in this repository when the application supports them. Do not encode those settings directly as Nix attribute sets unless no usable config file exists or the user explicitly requests it.
+- Publish XDG config files with `xdg.configFile` and other home-relative config files with `home.file`. Prefer `mkOutOfStoreSymlink` when the file should remain directly editable from the repository.
 - When adding a new repo-managed Codex skill, ensure `home/common.nix` and `windows/install.ps1` continue to publish it into `~/.codex/skills/`.
 - Update the root `README.md` when changing installation or synchronization behavior.
 - Leave `.codex/skills/.system` and other unmanaged user-local Codex state untouched.
