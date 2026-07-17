@@ -13,6 +13,7 @@ in
 {
   imports = [
     ./common.nix
+    ./hermes.nix
   ];
 
   home.username = "sorutrt";

@@ -4,6 +4,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     tokf = {
       url = "github:mpecan/tokf";
       flake = false;
