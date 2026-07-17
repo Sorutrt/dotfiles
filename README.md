@@ -17,6 +17,11 @@ sudo nixos-rebuild switch --flake .#mba2013
 systemctl status niri
 ```
 
+### 壁紙
+
+`niri` 起動時に `awww-daemon` を起動する。壁紙は
+`~/Pictures/Wallpaper/` に置き、`Mod+Shift+W` で開く rofi から選択する。
+
 ### 開発時
 確認
 ```
