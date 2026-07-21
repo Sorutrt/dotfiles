@@ -9,6 +9,16 @@ let
   mozcTool = pkgs.writeShellScriptBin "mozc_tool" ''
     exec ${pkgs.mozc}/lib/mozc/mozc_tool "$@"
   '';
+  logisimEvolution = pkgs.symlinkJoin {
+    name = "logisim-evolution-wayland";
+    paths = [ pkgs.logisim-evolution ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      rm $out/bin/logisim-evolution
+      makeWrapper ${pkgs.logisim-evolution}/bin/logisim-evolution $out/bin/logisim-evolution \
+        --set _JAVA_AWT_WM_NONREPARENTING 1
+    '';
+  };
   wallpaperSelect = pkgs.writeShellApplication {
     name = "wallpaper-select";
     runtimeInputs = with pkgs; [
@@ -63,6 +73,7 @@ in
     wl-clipboard
     waybar
     kdePackages.dolphin
+    logisimEvolution
   ];
 
   xdg.configFile = {
