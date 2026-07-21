@@ -55,6 +55,7 @@ in
     brightnessctl
     bottom
     inputs.codex-desktop-linux.packages.${pkgs.stdenv.hostPlatform.system}.codex-desktop
+    imagemagick
     libnotify
     mozcTool
     wallpaperSelect
