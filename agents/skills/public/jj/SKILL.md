@@ -61,6 +61,13 @@ If both fail, treat `jj` as unavailable in the current shell and fix the environ
 
 ## Failure Log
 
+### 2026-07-22: `jj diff --check` is not supported in jj 0.42.0
+
+- Symptom: `jj diff --check` failed with `unexpected argument '--check' found`.
+- Cause: jj 0.42.0 does not implement Git's whitespace-check option for `jj diff`.
+- Corrected workflow: use `jj diff --summary` for jj change inspection and `git diff --check` as the read-only compatibility check for whitespace errors.
+- Guardrail: do not pass Git-specific diff flags to jj without checking `jj diff --help`.
+
 ### 2026-06-23: `jj describe --no-editor` is not supported in jj 0.42.0
 
 - Symptom: `jj describe --no-editor -m "..."` failed with `unexpected argument '--no-editor' found`.
