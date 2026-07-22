@@ -42,10 +42,26 @@ if jetpack_available then
     end,
   })
 
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'JetpackPost:bufferline.nvim',
+    callback = function()
+      require('bufferline').setup({
+        options = {
+          mode = 'buffers',
+          always_show_bufferline = true,
+          left_mouse_command = 'buffer %d',
+        },
+      })
+    end,
+  })
+
   jetpack.begin()
   jetpack.add('tani/vim-jetpack', { opt = true })
   jetpack.add('sainnhe/everforest')
   jetpack.add('nvim-tree/nvim-web-devicons', { opt = true })
+  jetpack.add('akinsho/bufferline.nvim', {
+    requires = { 'nvim-web-devicons' },
+  })
   jetpack.add('nvim-tree/nvim-tree.lua', {
     cmd = nvim_tree_commands,
     requires = { 'nvim-web-devicons' },
@@ -73,6 +89,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.termguicolors = true
+vim.opt.showtabline = 2
 
 vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 0
