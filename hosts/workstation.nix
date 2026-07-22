@@ -62,7 +62,7 @@
     niri.enable = true;
   };
 
-  security.pam.services.swaylock = {};
+  security.pam.services.gtklock = {};
 
   environment.systemPackages = with pkgs; [
     vim
@@ -72,7 +72,7 @@
     pciutils
     usbutils
     rofi
-    swaylock
+    gtklock
   ];
 
   environment.sessionVariables = {

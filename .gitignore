@@ -78,6 +78,10 @@
 !/foot/foot.ini
 !/mako/
 !/mako/config
+!/gtklock/
+!/gtklock/config.ini
+!/gtklock/layout.ui
+!/gtklock/style.css
 
 !/README.md
 !/AGENTS.md

@@ -48,6 +48,32 @@ let
       awww img --transition-type random --transition-fps 60 "$wallpaper_dir/$selection"
     '';
   };
+  gtklockLock = pkgs.writeShellApplication {
+    name = "gtklock-lock";
+    runtimeInputs = with pkgs; [
+      awww
+      coreutils
+      gawk
+      gtklock
+      imagemagick
+    ];
+    text = ''
+      cache_dir="''${XDG_CACHE_HOME:-"$HOME/.cache"}/gtklock"
+      background="$cache_dir/background.png"
+      wallpaper="$(awww query | awk -F 'currently displaying: image: ' '/currently displaying: image:/ { print $2; exit }')"
+
+      if [[ -z "$wallpaper" || ! -f "$wallpaper" ]]; then
+        printf 'could not determine the current awww wallpaper\n' >&2
+        exit 1
+      fi
+
+      mkdir -p "$cache_dir"
+      dimensions="$(identify -format '%wx%h' "$wallpaper")"
+      magick "$wallpaper" -resize 50% -blur 0x12 -resize "$dimensions!" \
+        -fill '#2b3339' -colorize 18 "$background"
+      exec gtklock --background="$background"
+    '';
+  };
 in
 {
   imports = [
@@ -69,6 +95,7 @@ in
     libnotify
     mozcTool
     wallpaperSelect
+    gtklockLock
     playerctl
     wl-clipboard
     waybar
@@ -86,6 +113,9 @@ in
       source = mkOutOfStoreSymlink makoConfigFile;
       onChange = "${pkgs.mako}/bin/makoctl reload || true";
     };
+    "gtklock/config.ini".source = mkOutOfStoreSymlink "${dotfilesDir}/gtklock/config.ini";
+    "gtklock/layout.ui".source = mkOutOfStoreSymlink "${dotfilesDir}/gtklock/layout.ui";
+    "gtklock/style.css".source = mkOutOfStoreSymlink "${dotfilesDir}/gtklock/style.css";
   };
 
   gtk = {

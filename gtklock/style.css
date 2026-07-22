@@ -1,0 +1,59 @@
+#window-box {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+#info-box {
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+#clock-label {
+  color: #d3c6aa;
+  font-family: monospace;
+  font-size: 52px;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+#date-label {
+  color: #a7c080;
+  font-family: monospace;
+  font-size: 16px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+#input-label,
+#warning-label,
+#error-label {
+  color: #d3c6aa;
+  font-family: monospace;
+}
+
+#input-field {
+  background-color: rgba(43, 51, 57, 0.30);
+  background-image: none;
+  border: 1px solid rgba(211, 198, 170, 0.45);
+  border-radius: 10px;
+  caret-color: #d3c6aa;
+  color: #d3c6aa;
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+#input-field:focus {
+  border-color: #83c092;
+  background-color: rgba(43, 51, 57, 0.42);
+  box-shadow: 0 0 0 2px rgba(131, 192, 146, 0.28);
+}
+
+#error-label {
+  color: #e67e80;
+}
+
+#warning-label {
+  color: #dbbc7f;
+}
