@@ -30,6 +30,7 @@ alias lg = lazygit
 alias "jj fetch" = jj git fetch
 alias "jj push" = jj git push
 alias "jj clone" = jj git clone
+alias "jjnew" = jj new
 
 alias "winget upgrade all" = winget upgrade --all --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
 
