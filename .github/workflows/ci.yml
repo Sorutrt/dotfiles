@@ -38,7 +38,8 @@ jobs:
         run: |
           nix build --dry-run --no-link \
             .#nixosConfigurations.wsl.config.system.build.toplevel \
-            .#nixosConfigurations.mba2013.config.system.build.toplevel
+            .#nixosConfigurations.mba2013.config.system.build.toplevel \
+            .#nixosConfigurations.tpe14.config.system.build.toplevel
 
   windows-core:
     name: Windows core tests
