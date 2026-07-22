@@ -1,27 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
-  installOrUpdateCodex = pkgs.writeShellScript "install-or-update-codex" ''
-    set -u
+  updateCodex = pkgs.writeShellApplication {
+    name = "update-codex";
+    runtimeInputs = [ pkgs.nodejs_24 ];
+    text = ''
+      export HOME="${config.home.homeDirectory}"
+      export NPM_CONFIG_PREFIX="$HOME/.local"
+      export PATH="$HOME/.local/bin:$PATH"
 
-    export HOME="${config.home.homeDirectory}"
-    export NPM_CONFIG_PREFIX="$HOME/.local"
-    export PATH="${lib.makeBinPath [
-      pkgs.nodejs_24
-      pkgs.coreutils
-    ]}:$HOME/.local/bin:$PATH"
+      mkdir -p "$HOME/.local"
 
-    mkdir -p "$HOME/.local"
-
-    if npm install -g @openai/codex@latest; then
-      if command -v codex >/dev/null 2>&1; then
-        codex --version || true
-      fi
-    else
-      echo "warning: failed to install/update Codex; keeping existing installation if any" >&2
-      exit 0
-    fi
-  '';
+      npm install -g @openai/codex@latest
+      codex --version
+    '';
+  };
 
   codexAgentsFile = "${config.home.homeDirectory}/dotfiles/codex/AGENTS.md";
   sharedSkillRoot = "${config.home.homeDirectory}/dotfiles/agents/skills";
@@ -76,9 +69,10 @@ in
     actionlint
 
     # AI
-    # pkgs.codex is old. so install codex from official script.
+    # pkgs.codex is old. Use update-codex to install the latest release on demand.
     bubblewrap
     tokf
+    updateCodex
 
     # Editor
     vim
@@ -102,11 +96,6 @@ in
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/bin"
   ];
-
-  home.activation.installOrUpdateCodex =
-    lib.hm.dag.entryAfter [ "installPackages" ] ''
-      run ${installOrUpdateCodex}
-    '';
 
   home.file =
     {
