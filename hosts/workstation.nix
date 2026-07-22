@@ -62,6 +62,8 @@
     niri.enable = true;
   };
 
+  security.pam.services.swaylock = {};
+
   environment.systemPackages = with pkgs; [
     vim
     git
@@ -70,6 +72,7 @@
     pciutils
     usbutils
     rofi
+    swaylock
   ];
 
   environment.sessionVariables = {
