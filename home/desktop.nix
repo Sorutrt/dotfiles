@@ -132,7 +132,12 @@ in
 
   services.mako.enable = true;
 
-  systemd.user.services.copyq.Service.Environment = [
-    "QT_QPA_PLATFORM=wayland"
-  ];
+  systemd.user.services.copyq.Service = {
+    Environment = [
+      "QT_QPA_PLATFORM=wayland"
+    ];
+    ExecStartPost = [
+      "${pkgs.copyq}/bin/copyq eval \"while (size()) remove(0)\""
+    ];
+  };
 }
