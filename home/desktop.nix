@@ -91,6 +91,8 @@ in
   gtk = {
     enable = true;
     colorScheme = "dark";
+    gtk3.extraConfig.gtk-enable-primary-paste = false;
+    gtk4.extraConfig.gtk-enable-primary-paste = false;
   };
 
   services.copyq = {
