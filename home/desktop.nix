@@ -60,6 +60,7 @@ let
     text = ''
       cache_dir="''${XDG_CACHE_HOME:-"$HOME/.cache"}/gtklock"
       background="$cache_dir/background.png"
+      cache_state="$cache_dir/background.state"
       wallpaper="$(awww query | awk -F 'currently displaying: image: ' '/currently displaying: image:/ { print $2; exit }')"
 
       if [[ -z "$wallpaper" || ! -f "$wallpaper" ]]; then
@@ -68,9 +69,24 @@ let
       fi
 
       mkdir -p "$cache_dir"
-      dimensions="$(identify -format '%wx%h' "$wallpaper")"
-      magick "$wallpaper" -resize 50% -blur 0x12 -resize "$dimensions!" \
-        -fill '#2b3339' -colorize 18 "$background"
+      cache_key="v1:$wallpaper:$(stat -c '%s:%Y' "$wallpaper")"
+      state_tmp="$(mktemp "$cache_dir/background.state.XXXXXX")"
+      printf '%s\n' "$cache_key" > "$state_tmp"
+
+      if [[ ! -s "$background" || ! -f "$cache_state" ]] || ! cmp -s "$state_tmp" "$cache_state"; then
+        background_tmp="$(mktemp --suffix=.png "$cache_dir/background.XXXXXX")"
+        trap 'rm -f "$state_tmp" "$background_tmp"' EXIT
+
+        dimensions="$(identify -format '%wx%h' "$wallpaper")"
+        magick "$wallpaper" -resize 50% -blur 0x12 -resize "$dimensions!" \
+          -fill '#2b3339' -colorize 18 "$background_tmp"
+        mv "$background_tmp" "$background"
+        mv "$state_tmp" "$cache_state"
+        trap - EXIT
+      else
+        rm "$state_tmp"
+      fi
+
       exec gtklock --background="$background"
     '';
   };
