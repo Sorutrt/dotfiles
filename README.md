@@ -22,6 +22,20 @@ systemctl status niri
 `niri` 起動時に `awww-daemon` を起動する。壁紙は
 `~/Pictures/Wallpaper/` に置き、`Mod+Shift+W` で開く rofi から選択する。
 
+### tpe14 の音声入力
+
+VoxType と多言語版 Whisper small を使う。初回またはモデル削除後は、設定を
+反映してからモデルをダウンロードする。
+
+```sh
+voxtype setup --download
+systemctl --user restart voxtype
+voxtype setup check
+```
+
+`Mod+V` を1回押すと録音を開始し、もう1回押すと停止して、認識した日本語を
+カーソル位置へ入力する。
+
 ### 開発時
 確認
 ```
