@@ -1,0 +1,65 @@
+--- a/src/transcribe/moonshine.rs
++++ b/src/transcribe/moonshine.rs
+@@ -264 +264,20 @@
+-        let mut encoder_outputs = encoder.run(ort::inputs![input_tensor]).map_err(|e| {
++        let mut encoder_outputs = if encoder
++            .inputs()
++            .iter()
++            .any(|input| input.name() == "attention_mask")
++        {
++            let attention_mask = Tensor::<i64>::from_array((
++                [1usize, audio_len],
++                vec![1i64; audio_len],
++            ))
++            .map_err(|e| {
++                TranscribeError::InferenceFailed(format!(
++                    "Failed to create encoder attention mask: {}",
++                    e
++                ))
++            })?;
++            encoder.run(ort::inputs![input_tensor, attention_mask])
++        } else {
++            encoder.run(ort::inputs![input_tensor])
++        }
++        .map_err(|e| {
+@@ -279,0 +299,18 @@
++        let (encoder_hidden_shape, _) = encoder_hidden
++            .try_extract_tensor::<f32>()
++            .map_err(|e| {
++                TranscribeError::InferenceFailed(format!(
++                    "Failed to inspect encoder output shape: {}",
++                    e
++                ))
++            })?;
++        let encoder_sequence_length = encoder_hidden_shape
++            .get(1)
++            .copied()
++            .filter(|length| *length > 0)
++            .ok_or_else(|| {
++                TranscribeError::InferenceFailed(format!(
++                    "Unexpected encoder output shape: {:?}",
++                    encoder_hidden_shape
++                ))
++            })? as usize;
+@@ -390,0 +428,21 @@
++
++            if self
++                .decoder_input_names
++                .iter()
++                .any(|name| name == "encoder_attention_mask")
++            {
++                let encoder_attention_mask = Tensor::<i64>::from_array((
++                    [1usize, encoder_sequence_length],
++                    vec![1i64; encoder_sequence_length],
++                ))
++                .map_err(|e| {
++                    TranscribeError::InferenceFailed(format!(
++                        "Failed to create decoder attention mask: {}",
++                        e
++                    ))
++                })?;
++                inputs.push((
++                    std::borrow::Cow::Borrowed("encoder_attention_mask"),
++                    encoder_attention_mask.into(),
++                ));
++            }

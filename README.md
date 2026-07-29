@@ -24,11 +24,12 @@ systemctl status niri
 
 ### tpe14 の音声入力
 
-VoxType と量子化版 SenseVoice small を使う。初回またはモデル削除後は、設定を
-反映してからモデルをダウンロードする。
+VoxType と量子化版 Moonshine Voice `tiny-ja` を使う。モデルはHome Managerで
+取得・配置するため、設定の反映後に手動ダウンロードは不要。
+
+`tiny-ja` はMoonshine Community Licenseのため、非商用用途に限られる。
 
 ```sh
-voxtype setup --download --model small
 systemctl --user restart voxtype
 voxtype setup check
 ```
