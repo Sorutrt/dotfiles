@@ -5,6 +5,10 @@
     codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    voxtype = {
+      url = "github:peteonrails/voxtype/v0.7.2";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     tokf = {
       url = "github:mpecan/tokf";
       flake = false;

@@ -24,11 +24,11 @@ systemctl status niri
 
 ### tpe14 の音声入力
 
-VoxType と多言語版 Whisper base を使う。初回またはモデル削除後は、設定を
+VoxType と量子化版 SenseVoice small を使う。初回またはモデル削除後は、設定を
 反映してからモデルをダウンロードする。
 
 ```sh
-voxtype setup --download
+voxtype setup --download --model small
 systemctl --user restart voxtype
 voxtype setup check
 ```

@@ -1,13 +1,16 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
+let
+  voxtypePackage = inputs.voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx;
+in
 {
-  home.packages = with pkgs; [
-    voxtype
-    wtype
+  home.packages = [
+    voxtypePackage
+    pkgs.wtype
   ];
 
   xdg.configFile."voxtype/config.toml".text = ''
-    engine = "whisper"
+    engine = "sensevoice"
     state_file = "auto"
 
     [hotkey]
@@ -19,10 +22,10 @@
     sample_rate = 16000
     max_duration_secs = 60
 
-    [whisper]
-    model = "base"
+    [sensevoice]
+    model = "sensevoice-small"
     language = "ja"
-    translate = false
+    use_itn = true
     on_demand_loading = false
 
     [output]
@@ -46,7 +49,7 @@
       PartOf = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${pkgs.voxtype}/bin/voxtype -q daemon";
+      ExecStart = "${voxtypePackage}/bin/voxtype -q daemon";
       Restart = "on-failure";
       RestartSec = 5;
     };
