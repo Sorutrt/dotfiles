@@ -28,7 +28,11 @@
     };
   };
 
-  services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
 
   console.useXkbConfig = true;
 
