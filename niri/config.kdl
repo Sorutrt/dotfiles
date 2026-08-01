@@ -37,6 +37,7 @@ binds {
     Mod+Q repeat=false { close-window; }
     Mod+E hotkey-overlay-title="Open File Manager: dolphin" { spawn "dolphin"; }
     Mod+R hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
+    Mod+D hotkey-overlay-title="Run word register" { spawn-sh "mozc_tool --mode=word_register_dialog"; }
     Mod+Shift+W hotkey-overlay-title="Select Wallpaper" { spawn "wallpaper-select"; }
     Mod+Shift+Backslash hotkey-overlay-title="Lock Screen" { spawn "gtklock-lock"; }
     Alt+Space hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show run"; }
