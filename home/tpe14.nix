@@ -4,17 +4,16 @@ let
   niriConfigFile = "${config.home.homeDirectory}/dotfiles/niri/tpe14.kdl";
   waybarConfigFile = "${config.home.homeDirectory}/dotfiles/waybar/config.jsonc";
   waybarCssFile = "${config.home.homeDirectory}/dotfiles/waybar/style.css";
-  discordWayland = pkgs.symlinkJoin {
-    name = "discord-wayland";
-    paths = [ pkgs.unstable.discord ];
+  discordCanaryWayland = pkgs.symlinkJoin {
+    name = "discord-canary-wayland";
+    paths = [ pkgs.unstable.discord-canary ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      for command in Discord discord; do
-        wrapProgram "$out/bin/$command" \
-          --add-flags "--ozone-platform=wayland" \
-          --add-flags "--enable-wayland-ime" \
-          --add-flags "--wayland-text-input-version=3"
-      done
+      wrapProgram "$out/bin/DiscordCanary" \
+        --add-flags "--ozone-platform=wayland" \
+        --add-flags "--enable-wayland-ime" \
+        --add-flags "--wayland-text-input-version=3"
+      ln -s DiscordCanary "$out/bin/discord"
     '';
   };
 in
@@ -25,7 +24,7 @@ in
   ];
   
   home.packages = with pkgs; [
-    discordWayland
+    discordCanaryWayland
     xwayland-satellite
     obsidian
     onlyoffice-desktopeditors
