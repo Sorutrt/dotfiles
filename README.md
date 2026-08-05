@@ -56,7 +56,7 @@ nix flake update tokf
 
 ### Codex の更新
 
-Codex は起動時には更新しない。最新版へ更新するときだけ、ログイン後に次を実行する。
+Codex は起動時には更新しない。npm と Codex を最新版へ更新するときだけ、ログイン後に次を実行する。
 
 ```sh
 update-codex

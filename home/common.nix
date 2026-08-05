@@ -11,7 +11,9 @@ let
 
       mkdir -p "$HOME/.local"
 
-      npm install -g @openai/codex@latest
+      ${pkgs.nodejs_24}/bin/npm install -g npm@latest
+      "$HOME/.local/bin/npm" install -g @openai/codex@latest
+      npm --version
       codex --version
     '';
   };
