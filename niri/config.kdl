@@ -32,6 +32,12 @@ spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "waybar"
 spawn-at-startup "awww-daemon"
 
+gestures {
+    hot-corners {
+        bottom-left
+    }
+}
+
 binds {
     Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
     Mod+Q repeat=false { close-window; }
