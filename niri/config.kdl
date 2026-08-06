@@ -53,7 +53,7 @@ binds {
 
     // window size
     Mod+F { toggle-window-floating; }
-    Mod+M { maximize-window-to-edges; }
+    Mod+M { maximize-column; }
     Mod+I { switch-preset-column-width; }
 
     Mod+H { focus-column-left; }
